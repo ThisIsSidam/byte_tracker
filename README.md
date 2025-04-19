@@ -3,6 +3,9 @@
 A new Flutter project.
 
 ## Getting Started
+<p align="center">
+  <img src="public/dashboard.png" width="200" ><img src="public/transaction.png" width="200" >
+</p>
 
 This project is a starting point for a Flutter application.
 
