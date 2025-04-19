@@ -2,24 +2,15 @@ import 'dart:async';
 import 'dart:convert' show json;
 import 'dart:isolate';
 
-import 'package:byte_tracker/app/typedefs.dart';
 import 'package:dio/dio.dart';
+
+import '../../app/typedefs.dart';
 
 export 'package:dio/dio.dart' show CancelToken, Options, Response;
 
-/// Enum representing HTTP methods.
 enum HttpMethod { get, post, put, patch, delete }
 
-/// A service class that wraps the [Dio] instance and provides methods for
-/// basic network requests.
 final class ApiService {
-  /// A public constructor that is used to create a Dio service and initialize
-  /// the underlying [Dio] client.
-  ///
-  /// * [interceptors]: An [Iterable] for attaching custom
-  /// [Interceptor]s to the underlying [_dio] client.
-  /// * [httpClientAdapter]: Replaces the underlying [HttpClientAdapter] with
-  /// this custom one.
   ApiService({
     required Dio dio,
     Iterable<Interceptor> interceptors = const <Interceptor>[],
@@ -35,16 +26,13 @@ final class ApiService {
     );
   }
 
-  /// An instance of [Dio] for executing network requests.
   final Dio _dio;
 
-  /// Decode response data in a background isolate to prevent UI jank.
   FutureOr<Object?> _decodeJson(String text, [int sizeKb = 50]) async {
     if (text.codeUnits.length < sizeKb * 1024) return json.decode(text);
     return Isolate.run<Object?>(() => json.decode(text), debugName: 'decoder');
   }
 
-  /// A generalized request method that supports different HTTP methods.
   Future<Response<R>> request<R>(
     String endpoint, {
     required HttpMethod method,
