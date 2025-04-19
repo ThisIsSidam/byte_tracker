@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'features/authentication/presentation/providers/auth_notifier.dart';
 import 'features/authentication/presentation/screens/sign_in_screen.dart';
-import 'features/home/presentation/screens/dashboard_screen.dart';
+import 'features/dashboard/presentation/screens/app_dashboard.dart';
 import 'firebase_options.dart';
 import 'shared/widgets/riverpod_widgets/async_widget.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
         value: ref.watch(authNotifierProvider),
         data: (AuthState authState) {
           return authState.isLoggedIn()
-              ? const DashboardScreen()
+              ? const AppDashboard()
               : const SignInScreen();
         },
         error: (Object e, __) => Text('$e'),
