@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDJgwyf5RzAPGzao38-onvfYYxpXWGEN9Q',
-    appId: '1:836496669919:android:f308d8044cc58cd1d53d6a',
+    appId: '1:836496669919:android:0f79622cfa403cedd53d6a',
     messagingSenderId: '836496669919',
     projectId: 'bandits-bytetracker',
     storageBucket: 'bandits-bytetracker.firebasestorage.app',
@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'bandits-bytetracker.firebasestorage.app',
     measurementId: 'G-DT8NJQY3S1',
   );
+
 }

@@ -7,6 +7,44 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:836496669919:android:0f79622cfa403cedd53d6a",
+        "android_client_info": {
+          "package_name": "app.bandit.tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJgwyf5RzAPGzao38-onvfYYxpXWGEN9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836496669919:android:12e76f29969acd45d53d6a",
+        "android_client_info": {
+          "package_name": "app.byte.tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJgwyf5RzAPGzao38-onvfYYxpXWGEN9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:836496669919:android:f308d8044cc58cd1d53d6a",
         "android_client_info": {
           "package_name": "com.example.byte_tracker"

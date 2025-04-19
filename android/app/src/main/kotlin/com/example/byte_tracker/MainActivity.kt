@@ -1,4 +1,4 @@
-package com.example.byte_tracker
+package app.bandit.tracker
 
 import io.flutter.embedding.android.FlutterActivity
 
