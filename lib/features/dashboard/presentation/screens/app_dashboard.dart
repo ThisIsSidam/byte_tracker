@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../transactions/presentation/screens/transactions_screen.dart';
 import 'dashboard_screen.dart';
 
 @immutable
@@ -17,8 +18,7 @@ class AppDashboard extends HookConsumerWidget {
       case 0:
         return const DashboardScreen();
       case 1:
-        // TODO: Replace with TransactionsScreen
-        return const DashboardScreen();
+        return const TransactionsScreen();
       case 2:
         // TODO: Replace with GoalsScreen
         return const DashboardScreen();
