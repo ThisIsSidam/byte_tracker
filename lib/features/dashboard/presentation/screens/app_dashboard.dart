@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../goals/presentation/screens/goals_screen.dart';
 import '../../../transactions/presentation/screens/transactions_screen.dart';
 import 'dashboard_screen.dart';
 
 @immutable
 class AppDashboard extends HookConsumerWidget {
-  const AppDashboard({this.firstScreen = 2, super.key});
+  const AppDashboard({this.firstScreen = 0, super.key});
 
   /// Opens the dashboard with the screen of the index.
-  /// Defaults to 2, opening the Homescreen.
+  /// Defaults to 0, opening the DashboardScreen.
   final int firstScreen;
 
   Widget _currentScreen(int index) {
@@ -20,8 +21,7 @@ class AppDashboard extends HookConsumerWidget {
       case 1:
         return const TransactionsScreen();
       case 2:
-        // TODO: Replace with GoalsScreen
-        return const DashboardScreen();
+        return const GoalsScreen();
       case 3:
         // TODO: Replace with ReportsScreen
         return const DashboardScreen();

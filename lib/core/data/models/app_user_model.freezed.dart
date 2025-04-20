@@ -31,6 +31,7 @@ mixin _$AppUser {
   int get lastBankSync;
   DateTime get createdAt;
   DateTime get updatedAt;
+  List<GoalModel> get goals;
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
@@ -66,7 +67,8 @@ mixin _$AppUser {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            const DeepCollectionEquality().equals(other.goals, goals));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -83,11 +85,12 @@ mixin _$AppUser {
       limitForDay,
       lastBankSync,
       createdAt,
-      updatedAt);
+      updatedAt,
+      const DeepCollectionEquality().hash(goals));
 
   @override
   String toString() {
-    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt, goals: $goals)';
   }
 }
 
@@ -107,7 +110,8 @@ abstract mixin class $AppUserCopyWith<$Res> {
       @JsonKey(name: 'limitForDay') int limitForDay,
       @JsonKey(name: 'lastBankSync') int lastBankSync,
       DateTime createdAt,
-      DateTime updatedAt});
+      DateTime updatedAt,
+      List<GoalModel> goals});
 }
 
 /// @nodoc
@@ -133,6 +137,7 @@ class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
     Object? lastBankSync = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? goals = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -179,6 +184,10 @@ class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
           ? _self.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      goals: null == goals
+          ? _self.goals
+          : goals // ignore: cast_nullable_to_non_nullable
+              as List<GoalModel>,
     ));
   }
 }
@@ -197,7 +206,9 @@ class _AppUser implements AppUser {
       @JsonKey(name: 'limitForDay') required this.limitForDay,
       @JsonKey(name: 'lastBankSync') required this.lastBankSync,
       required this.createdAt,
-      required this.updatedAt});
+      required this.updatedAt,
+      final List<GoalModel> goals = const <GoalModel>[]})
+      : _goals = goals;
   factory _AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
 
@@ -228,6 +239,14 @@ class _AppUser implements AppUser {
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
+  final List<GoalModel> _goals;
+  @override
+  @JsonKey()
+  List<GoalModel> get goals {
+    if (_goals is EqualUnmodifiableListView) return _goals;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_goals);
+  }
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
@@ -268,7 +287,8 @@ class _AppUser implements AppUser {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            const DeepCollectionEquality().equals(other._goals, _goals));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -285,11 +305,12 @@ class _AppUser implements AppUser {
       limitForDay,
       lastBankSync,
       createdAt,
-      updatedAt);
+      updatedAt,
+      const DeepCollectionEquality().hash(_goals));
 
   @override
   String toString() {
-    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt, goals: $goals)';
   }
 }
 
@@ -310,7 +331,8 @@ abstract mixin class _$AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       @JsonKey(name: 'limitForDay') int limitForDay,
       @JsonKey(name: 'lastBankSync') int lastBankSync,
       DateTime createdAt,
-      DateTime updatedAt});
+      DateTime updatedAt,
+      List<GoalModel> goals});
 }
 
 /// @nodoc
@@ -336,6 +358,7 @@ class __$AppUserCopyWithImpl<$Res> implements _$AppUserCopyWith<$Res> {
     Object? lastBankSync = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? goals = null,
   }) {
     return _then(_AppUser(
       id: null == id
@@ -382,6 +405,10 @@ class __$AppUserCopyWithImpl<$Res> implements _$AppUserCopyWith<$Res> {
           ? _self.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      goals: null == goals
+          ? _self._goals
+          : goals // ignore: cast_nullable_to_non_nullable
+              as List<GoalModel>,
     ));
   }
 }

@@ -18,6 +18,10 @@ _AppUser _$AppUserFromJson(Map<String, dynamic> json) => _AppUser(
       lastBankSync: (json['lastBankSync'] as num).toInt(),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
+      goals: (json['goals'] as List<dynamic>?)
+              ?.map((e) => GoalModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <GoalModel>[],
     );
 
 Map<String, dynamic> _$AppUserToJson(_AppUser instance) => <String, dynamic>{
@@ -32,4 +36,5 @@ Map<String, dynamic> _$AppUserToJson(_AppUser instance) => <String, dynamic>{
       'lastBankSync': instance.lastBankSync,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
+      'goals': instance.goals,
     };
