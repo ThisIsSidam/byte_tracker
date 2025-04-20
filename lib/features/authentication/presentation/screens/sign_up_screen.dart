@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../app/router/router.dart';
+import '../../../../shared/widgets/buttons/loading_button.dart';
 import '../../../../shared/widgets/riverpod_widgets/state_selector.dart';
 import '../providers/auth_notifier.dart';
 import '../providers/sign_up_provider.dart';
@@ -180,26 +181,33 @@ class SignUpScreen extends HookConsumerWidget {
       builder: (BuildContext context, FormGroup form, Widget? child) {
         return SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-            ),
-            onPressed: form.valid
-                ? () async {
-                    ref.read(newUserStateProvider.notifier).updateUser(
-                          email: form.control('email').value as String,
-                          password: form.control('password').value as String,
-                        );
-                    final bool status =
-                        await ref.read(authNotifierProvider.notifier).signUp();
-                    if (!status) {
-                      // Handle error
+          child: StateSelector<AsyncValue<AuthState>, bool>(
+            selector: (AsyncValue<AuthState> state) =>
+                state.isLoading && (state.hasValue || state.hasError),
+            provider: authNotifierProvider,
+            builder: (__, bool isLoading, Widget? child) => LoadingButton(
+              isLoading: isLoading,
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+              onPressed: form.valid
+                  ? () async {
+                      ref.read(newUserStateProvider.notifier).updateUser(
+                            email: form.control('email').value as String,
+                            password: form.control('password').value as String,
+                          );
+                      final bool status = await ref
+                          .read(authNotifierProvider.notifier)
+                          .signUp();
+                      if (!status) {
+                        // Handle error
+                      }
                     }
-                  }
-                : null,
-            child: const Text(
-              'Sign Up',
-              style: TextStyle(color: Colors.white),
+                  : null,
+              child: const Text(
+                'Sign Up',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         );
