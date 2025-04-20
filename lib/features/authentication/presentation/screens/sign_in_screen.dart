@@ -101,12 +101,15 @@ class SignInScreen extends HookConsumerWidget {
                       selector: (AsyncValue<AuthState> state) => state.error,
                       provider: authNotifierProvider,
                       builder: (__, Object? error, _) => error != null
-                          ? const Column(
+                          ? Column(
                               children: <Widget>[
                                 Text(
                                   'The email or password is incorrect',
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    color: Colors.red,
+                                  ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 16,
                                 ),
                               ],

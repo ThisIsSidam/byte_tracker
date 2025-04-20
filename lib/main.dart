@@ -2,11 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'features/authentication/presentation/providers/auth_notifier.dart';
+import 'app/router.dart';
+import 'features/app_startup/presentation/provider/app_startup_provider.dart';
+import 'features/app_startup/presentation/provider/initial_screen_provider.dart';
+import 'features/app_startup/presentation/screens/splash_screen.dart';
 import 'features/authentication/presentation/screens/sign_in_screen.dart';
 import 'features/dashboard/presentation/screens/app_dashboard.dart';
 import 'firebase_options.dart';
-import 'shared/widgets/riverpod_widgets/async_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,16 +21,34 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(appStartupProvider, (_, __) {});
+    final AppRoute? route = ref.watch(initialScreenProvider);
+    final Widget currentScreen = route == null
+        ? const SplashScreen()
+        : route == AppRoute.signIn
+            ? const SignInScreen()
+            : route == AppRoute.home
+                ? const AppDashboard()
+                : _buildErrorScreen(ref);
     return MaterialApp(
-      home: AsyncValueWidget<AuthState>(
-        value: ref.watch(authNotifierProvider),
-        data: (AuthState authState) {
-          return authState.isLoggedIn()
-              ? const AppDashboard()
-              : const SignInScreen();
-        },
-        error: (Object e, __) => Text('$e'),
-        loading: CircularProgressIndicator.new,
+      home: currentScreen,
+    );
+  }
+
+  Widget _buildErrorScreen(WidgetRef ref) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text('Something went Wrong!'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => ref.invalidate(appStartupProvider),
+              child: const Text('Retry'),
+            ),
+          ],
+        ),
       ),
     );
   }
