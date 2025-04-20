@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/data/models/app_user_model.dart';
+import '../../../../core/extensions/num_ext.dart';
 import '../../../../core/providers/app_user_provider.dart';
 import '../../../../shared/widgets/riverpod_widgets/async_widget.dart';
+import '../providers/dashboard_details_provider.dart';
 import '../widgets/daily_expense_card.dart';
 import '../widgets/expense_trend_card.dart';
 import '../widgets/insights_card.dart';
@@ -23,7 +26,7 @@ class DashboardScreen extends ConsumerWidget {
                 child: Text('No user data available'),
               );
             }
-            return _buildBody(context, user);
+            return _buildBody(context, ref, user);
           },
           error: (Object e, _) => Center(
             child: Text(e.toString()),
@@ -34,7 +37,7 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildBody(BuildContext context, AppUser user) {
+  Widget _buildBody(BuildContext context, WidgetRef ref, AppUser user) {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
       child: Column(
@@ -50,28 +53,38 @@ class DashboardScreen extends ConsumerWidget {
           Row(
             children: <Widget>[
               Expanded(
-                child: _buildSummaryCard(
-                  context,
-                  title: 'Income',
-                  amount: '₹15,200',
-                  icon: Icons.arrow_upward,
-                  iconColor: Colors.green,
-                  backgroundColor: Colors.green.shade50,
-                  borderColor: Colors.green.shade100,
-                  textColor: Colors.green.shade700,
+                child: AsyncValueWidget<num>(
+                  value: ref.watch(getGrossCreditProvider),
+                  loading: _buildSkeletonCard,
+                  error: (Object e, __) => Text(e.toString()),
+                  data: (num value) => _buildSummaryCard(
+                    context,
+                    title: 'Income',
+                    amount: '₹${value.toCurrency()}',
+                    icon: Icons.arrow_upward,
+                    iconColor: Colors.green,
+                    backgroundColor: Colors.green.shade50,
+                    borderColor: Colors.green.shade100,
+                    textColor: Colors.green.shade700,
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildSummaryCard(
-                  context,
-                  title: 'Expenses',
-                  amount: '₹9,850',
-                  icon: Icons.arrow_downward,
-                  iconColor: Colors.red,
-                  backgroundColor: Colors.red.shade50,
-                  borderColor: Colors.red.shade100,
-                  textColor: Colors.red.shade700,
+                child: AsyncValueWidget<num>(
+                  value: ref.watch(getGrossDebitProvider),
+                  loading: _buildSkeletonCard,
+                  error: (Object e, __) => Text(e.toString()),
+                  data: (num value) => _buildSummaryCard(
+                    context,
+                    title: 'Expenses',
+                    amount: '₹${value.toCurrency()}',
+                    icon: Icons.arrow_downward,
+                    iconColor: Colors.red,
+                    backgroundColor: Colors.red.shade50,
+                    borderColor: Colors.red.shade100,
+                    textColor: Colors.red.shade700,
+                  ),
                 ),
               ),
             ],
@@ -155,6 +168,40 @@ class DashboardScreen extends ConsumerWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkeletonCard() {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
+      child: const Skeletonizer(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Icon(Icons.arrow_upward, size: 16),
+                  SizedBox(width: 4),
+                  Text('Loading...', style: TextStyle(fontSize: 12)),
+                ],
+              ),
+              SizedBox(height: 8),
+              Text(
+                '₹10,000',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
