@@ -89,7 +89,9 @@ class DashboardScreen extends ConsumerWidget {
               ),
             ],
           ),
-          const DailyExpenseCard(),
+          DailyExpenseCard(
+            user: user,
+          ),
           const ExpenseTrendCard(),
           InsightCard(
             title: 'Smart Insight',

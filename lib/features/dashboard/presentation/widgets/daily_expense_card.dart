@@ -1,19 +1,28 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/data/models/app_user_model.dart';
 import '../../../../core/extensions/num_ext.dart';
-import '../../../../core/providers/app_user_provider.dart';
 import '../../../../shared/widgets/riverpod_widgets/async_widget.dart';
+import '../providers/dashboard_details_provider.dart';
 
 class DailyExpenseCard extends ConsumerWidget {
-  const DailyExpenseCard({super.key});
+  const DailyExpenseCard({required this.user, super.key});
+
+  final AppUser user;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AsyncValueWidget(
-      value: ref.watch(appUserProvider),
+    return AsyncValueWidget<num>(
+      value: ref.watch(getTodaysSpendProvider),
+      error: (Object e, _) => Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Text(e.toString()),
+        ),
+      ),
       loading: () => Skeletonizer(
         child: Card(
           child: Padding(
@@ -85,10 +94,7 @@ class DailyExpenseCard extends ConsumerWidget {
           ),
         ),
       ),
-      data: (AppUser? user) {
-        if (user == null) {
-          return const SizedBox.shrink();
-        }
+      data: (num value) {
         return Card(
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -120,7 +126,7 @@ class DailyExpenseCard extends ConsumerWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Today's spending: ₹350",
+                  "Today's spending: ₹${value.toCurrency()}",
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Colors.grey.shade600,
                       ),
@@ -129,7 +135,7 @@ class DailyExpenseCard extends ConsumerWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(4),
                   child: LinearProgressIndicator(
-                    value: 0.7,
+                    value: clampDouble(value / user.limitForDay, 0, 1),
                     backgroundColor: Colors.grey.shade200,
                     minHeight: 8,
                   ),
