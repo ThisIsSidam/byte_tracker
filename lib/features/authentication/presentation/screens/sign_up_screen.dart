@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../app/router.dart';
+import '../../../../app/router/router.dart';
 import '../providers/sign_up_provider.dart';
 import '../widgets/add_pwd_section.dart';
 import '../widgets/sign_up_section.dart';

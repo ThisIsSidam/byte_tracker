@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../app/router.dart';
+import '../../../../app/router/router.dart';
 import '../../../../core/services/auth_interceptor.dart';
 
 part 'auth_notifier.g.dart';

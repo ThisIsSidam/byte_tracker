@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../app/router.dart';
+import '../../../../app/router/router.dart';
 import '../../../authentication/presentation/providers/auth_notifier.dart';
 import 'initial_screen_provider.dart';
 

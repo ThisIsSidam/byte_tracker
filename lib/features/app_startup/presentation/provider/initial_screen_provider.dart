@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../app/router.dart';
+import '../../../../app/router/router.dart';
 
 part 'initial_screen_provider.g.dart';
 

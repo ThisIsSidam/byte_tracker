@@ -2,8 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'app/router.dart';
-import 'app/routes_builder.dart';
+import 'app/router/router.dart';
+import 'app/router/routes_builder.dart';
+import 'app/theme/theme.dart';
 import 'features/app_startup/presentation/provider/app_startup_provider.dart';
 import 'features/app_startup/presentation/provider/initial_screen_provider.dart';
 import 'features/app_startup/presentation/screens/splash_screen.dart';
@@ -34,6 +35,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       routes: appRoutes(),
       home: currentScreen,
+      theme: lightTheme,
     );
   }
 

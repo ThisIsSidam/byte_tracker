@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../../../../app/router.dart';
+import '../../../../app/router/router.dart';
 import '../providers/auth_notifier.dart';
 import '../providers/sign_up_provider.dart';
 
