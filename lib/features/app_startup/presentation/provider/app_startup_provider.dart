@@ -33,6 +33,6 @@ FutureOr<String?> appStartup(Ref ref) async {
     ref.read(initialScreenProvider.notifier).updateRoute = AppRoute.signIn;
     return AppRoute.signIn.path;
   }
-  ref.read(initialScreenProvider.notifier).updateRoute = AppRoute.home;
-  return AppRoute.home.path;
+  ref.read(initialScreenProvider.notifier).updateRoute = AppRoute.dashboardHome;
+  return AppRoute.dashboardHome.path;
 }

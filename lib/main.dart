@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'app/router.dart';
+import 'app/routes_builder.dart';
 import 'features/app_startup/presentation/provider/app_startup_provider.dart';
 import 'features/app_startup/presentation/provider/initial_screen_provider.dart';
 import 'features/app_startup/presentation/screens/splash_screen.dart';
@@ -27,10 +28,11 @@ class MyApp extends ConsumerWidget {
         ? const SplashScreen()
         : route == AppRoute.signIn
             ? const SignInScreen()
-            : route == AppRoute.home
+            : route == AppRoute.dashboardHome
                 ? const AppDashboard()
                 : _buildErrorScreen(ref);
     return MaterialApp(
+      routes: appRoutes(),
       home: currentScreen,
     );
   }

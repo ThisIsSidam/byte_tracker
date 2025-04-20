@@ -1,7 +1,8 @@
 enum AppRoute {
-  dashboard('/dashboard'),
+  appDashboard('/dashboard'),
   signIn('/signIn'),
-  home('/home'),
+  signUp('/signUp'),
+  dashboardHome('/home'),
   ;
 
   const AppRoute(this.path);

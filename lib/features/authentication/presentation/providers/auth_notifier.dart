@@ -22,7 +22,7 @@ class AuthNotifier extends _$AuthNotifier {
     final User? firebaseUser =
         await ref.read(authStreamProvider.selectAsync((User? user) => user));
     if (firebaseUser == null) return const LoggedOut();
-    return const LoggedIn(AppRoute.home);
+    return const LoggedIn(AppRoute.dashboardHome);
   }
 
   Future<void> signIn(String email, String pwd) async {
@@ -34,12 +34,16 @@ class AuthNotifier extends _$AuthNotifier {
         email: email,
         password: pwd,
       );
-      state = const AsyncData<AuthState>(LoggedIn(AppRoute.home));
+      state = const AsyncData<AuthState>(LoggedIn(AppRoute.dashboardHome));
     } on FirebaseAuthException catch (e, stk) {
       state = AsyncError<AuthState>(e, stk).copyWithPrevious(previous);
     } catch (e, stk) {
       state = AsyncError<AuthState>(e, stk).copyWithPrevious(previous);
     }
+  }
+
+  Future<bool> signUp() async {
+    return false;
   }
 
   Future<void> signOut() async {

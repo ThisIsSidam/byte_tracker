@@ -6,7 +6,7 @@ part of 'app_startup_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appStartupHash() => r'ffef746b34b4e4401fb004e4ece62bb686532dba';
+String _$appStartupHash() => r'b2eb600e21cd77beb36c9d3b483401b428fd8676';
 
 /// Does all the initialization for the app
 /// Returns the route-name of the app screen that should be opened

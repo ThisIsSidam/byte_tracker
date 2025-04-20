@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../../app/router.dart';
 import '../../../../shared/widgets/buttons/loading_button.dart';
 import '../../../../shared/widgets/riverpod_widgets/state_selector.dart';
 import '../providers/auth_notifier.dart';
@@ -161,10 +162,21 @@ class SignInScreen extends HookConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 25),
-                    const Center(
-                      child: Text(
-                        "Don't have an account? ",
-                      ),
+                    Row(
+                      children: <Widget>[
+                        const Text(
+                          "Don't have an account? ",
+                        ),
+                        TextButton(
+                          child: const Text('Sign Up'),
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              AppRoute.signUp.path,
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 );
