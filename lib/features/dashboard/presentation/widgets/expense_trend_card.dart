@@ -38,79 +38,16 @@ class ExpenseTrendCard extends ConsumerWidget {
                       ),
                 ),
                 const SizedBox(height: 16),
-                SizedBox(
-                  height: 200,
-                  child: LineChart(
-                    LineChartData(
-                      gridData: const FlGridData(show: false),
-                      titlesData: FlTitlesData(
-                        leftTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            reservedSize: 40,
-                            getTitlesWidget: (double value, TitleMeta meta) {
-                              return Text(
-                                '₹${value.toInt()}',
-                                style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 10,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: (double value, TitleMeta meta) {
-                              const List<String> days = <String>[
-                                'Mon',
-                                'Tue',
-                                'Wed',
-                                'Thu',
-                                'Fri',
-                                'Sat',
-                                'Sun',
-                              ];
-                              if (value.toInt() >= 0 &&
-                                  value.toInt() < days.length) {
-                                return Text(
-                                  days[value.toInt()],
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 10,
-                                  ),
-                                );
-                              }
-                              return const Text('');
-                            },
-                          ),
-                        ),
-                        rightTitles: const AxisTitles(),
-                        topTitles: const AxisTitles(),
-                      ),
-                      borderData: FlBorderData(show: false),
-                      lineBarsData: <LineChartBarData>[
-                        LineChartBarData(
-                          spots: List<FlSpot>.generate(
-                            spots.length,
-                            (int index) =>
-                                FlSpot(index.toDouble(), spots[index]),
-                          ),
-                          isCurved: true,
-                          color: Colors.red.shade400,
-                          barWidth: 3,
-                          isStrokeCapRound: true,
-                          dotData: const FlDotData(show: false),
-                          belowBarData: BarAreaData(
-                            show: true,
-                            color: Colors.red.shade400.withAlpha(100),
-                          ),
-                        ),
-                      ],
+                if (spots.every((double i) => i == 0))
+                  const Text(
+                    'No expenses recorded in the last 7 days',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
                     ),
-                  ),
-                ),
+                  )
+                else
+                  _buildChart(spots),
               ],
             ),
           ),
@@ -136,6 +73,80 @@ class ExpenseTrendCard extends ConsumerWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildChart(List<double> spots) {
+    return SizedBox(
+      height: 200,
+      child: LineChart(
+        LineChartData(
+          gridData: const FlGridData(show: false),
+          titlesData: FlTitlesData(
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 40,
+                getTitlesWidget: (double value, TitleMeta meta) {
+                  return Text(
+                    '₹${value.toInt()}',
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 10,
+                    ),
+                  );
+                },
+              ),
+            ),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                getTitlesWidget: (double value, TitleMeta meta) {
+                  const List<String> days = <String>[
+                    'Mon',
+                    'Tue',
+                    'Wed',
+                    'Thu',
+                    'Fri',
+                    'Sat',
+                    'Sun',
+                  ];
+                  if (value.toInt() >= 0 && value.toInt() < days.length) {
+                    return Text(
+                      days[value.toInt()],
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 10,
+                      ),
+                    );
+                  }
+                  return const Text('');
+                },
+              ),
+            ),
+            rightTitles: const AxisTitles(),
+            topTitles: const AxisTitles(),
+          ),
+          borderData: FlBorderData(show: false),
+          lineBarsData: <LineChartBarData>[
+            LineChartBarData(
+              spots: List<FlSpot>.generate(
+                spots.length,
+                (int index) => FlSpot(index.toDouble(), spots[index]),
+              ),
+              isCurved: true,
+              color: Colors.red.shade400,
+              barWidth: 3,
+              isStrokeCapRound: true,
+              dotData: const FlDotData(show: false),
+              belowBarData: BarAreaData(
+                show: true,
+                color: Colors.red.shade400.withAlpha(100),
+              ),
+            ),
+          ],
         ),
       ),
     );
