@@ -1,145 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../shared/widgets/riverpod_widgets/async_widget.dart';
 import '../../data/models/transaction_model.dart';
+import '../providers/transactions_provider.dart';
 import '../widgets/transaction_card.dart';
 
-class TransactionsScreen extends StatefulWidget {
+class TransactionsScreen extends HookConsumerWidget {
   const TransactionsScreen({super.key});
 
   @override
-  State<TransactionsScreen> createState() => _TransactionsScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final TabController tabController = useTabController(initialLength: 4);
+    final ValueNotifier<String> searchQuery = useState('');
 
-class _TransactionsScreenState extends State<TransactionsScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  String _searchQuery = '';
+    List<ITransactionModel> filterTransactions(
+      List<ITransactionModel> transactions,
+    ) {
+      return transactions.where((ITransactionModel t) {
+        final String query = searchQuery.value.toLowerCase();
+        return t.title.toLowerCase().contains(query) ||
+            (t.notes?.toLowerCase().contains(query) ?? false) ||
+            t.category.toLowerCase().contains(query);
+      }).toList();
+    }
 
-  final List<Transaction> transactions = <Transaction>[
-    Transaction(
-      id: 1,
-      title: 'Cafe Coffee Day',
-      note: 'Coffee with friends',
-      amount: -180,
-      date: 'Today, 10:30 AM',
-      category: 'Food',
-      icon: Icons.coffee,
-      color: Colors.orange,
-    ),
-    Transaction(
-      id: 2,
-      title: 'Metro Ticket',
-      note: 'College commute',
-      amount: -50,
-      date: 'Today, 8:15 AM',
-      category: 'Transport',
-      icon: Icons.directions_bus,
-      color: Colors.blue,
-    ),
-    Transaction(
-      id: 3,
-      title: 'Stipend',
-      note: 'Internship payment',
-      amount: 5000,
-      date: 'Yesterday, 6:00 PM',
-      category: 'Income',
-      icon: Icons.work,
-      color: Colors.green,
-    ),
-    Transaction(
-      id: 4,
-      title: "Domino's Pizza",
-      note: 'Dinner with roommates',
-      amount: -450,
-      date: 'Yesterday, 8:30 PM',
-      category: 'Food',
-      icon: Icons.restaurant,
-      color: Colors.orange,
-    ),
-    Transaction(
-      id: 5,
-      title: 'Steam Games',
-      note: 'Weekend entertainment',
-      amount: -299,
-      date: 'Jul 15, 3:45 PM',
-      category: 'Entertainment',
-      icon: Icons.sports_esports,
-      color: Colors.purple,
-    ),
-    Transaction(
-      id: 6,
-      title: 'Uber Ride',
-      note: 'Late night return',
-      amount: -120,
-      date: 'Jul 15, 11:30 PM',
-      category: 'Transport',
-      icon: Icons.directions_car,
-      color: Colors.blue,
-    ),
-    Transaction(
-      id: 7,
-      title: 'Stationery',
-      note: 'Project supplies',
-      amount: -250,
-      date: 'Jul 14, 4:20 PM',
-      category: 'Misc',
-      icon: Icons.shopping_bag,
-      color: Colors.grey,
-    ),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  List<Transaction> get filteredTransactions {
-    return transactions.where((Transaction transaction) {
-      return transaction.title
-              .toLowerCase()
-              .contains(_searchQuery.toLowerCase()) ||
-          transaction.note.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-          transaction.category
-              .toLowerCase()
-              .contains(_searchQuery.toLowerCase());
-    }).toList();
-  }
-
-  List<Transaction> getTransactionsByCategory(String category) {
-    if (category == 'All') {
-      return filteredTransactions;
-    } else if (category == 'Misc') {
-      return filteredTransactions
-          .where(
-            (Transaction t) =>
-                !<String>['Food', 'Transport', 'Income'].contains(t.category),
-          )
-          .toList();
-    } else {
-      return filteredTransactions
-          .where((Transaction t) => t.category == category)
+    List<ITransactionModel> getByCategory(
+      List<ITransactionModel> list,
+      String category,
+    ) {
+      final List<ITransactionModel> filtered = filterTransactions(list);
+      if (category == 'All') return filtered;
+      if (category == 'Misc') {
+        return filtered
+            .where(
+              (ITransactionModel t) =>
+                  !<String>['Food', 'Transport', 'Income'].contains(t.category),
+            )
+            .toList();
+      }
+      return filtered
+          .where((ITransactionModel t) => t.category == category)
           .toList();
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
         title: TextField(
-          onChanged: (String value) {
-            setState(() {
-              _searchQuery = value;
-            });
-          },
+          onChanged: (String value) => searchQuery.value = value,
           decoration: InputDecoration(
             hintText: 'Search transactions...',
             prefixIcon: const Icon(Icons.search),
@@ -153,7 +63,7 @@ class _TransactionsScreenState extends State<TransactionsScreen>
           ),
         ),
         bottom: TabBar(
-          controller: _tabController,
+          controller: tabController,
           labelColor: Theme.of(context).primaryColor,
           unselectedLabelColor: Colors.grey,
           indicatorColor: Theme.of(context).primaryColor,
@@ -165,27 +75,38 @@ class _TransactionsScreenState extends State<TransactionsScreen>
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          _buildTransactionList(getTransactionsByCategory('All')),
-          _buildTransactionList(getTransactionsByCategory('Food')),
-          _buildTransactionList(getTransactionsByCategory('Transport')),
-          _buildTransactionList(getTransactionsByCategory('Misc')),
-        ],
+      body: AsyncValueWidget<List<ITransactionModel>>(
+        value: ref.watch(getAllTransactionsProvider),
+        error: (Object e, _) => Center(
+          child: Text(
+            e.toString(),
+            style: const TextStyle(color: Colors.red),
+          ),
+        ),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        data: (List<ITransactionModel> transactions) => TabBarView(
+          controller: tabController,
+          children: <Widget>[
+            _buildTransactionList(getByCategory(transactions, 'All')),
+            _buildTransactionList(getByCategory(transactions, 'Food')),
+            _buildTransactionList(getByCategory(transactions, 'Transport')),
+            _buildTransactionList(getByCategory(transactions, 'Misc')),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildTransactionList(List<Transaction> transactions) {
+  Widget _buildTransactionList(List<ITransactionModel> transactions) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: transactions.length,
       itemBuilder: (BuildContext context, int index) {
-        final Transaction transaction = transactions[index];
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
-          child: TransactionCard(transaction: transaction),
+          child: TransactionCard(transaction: transactions[index]),
         );
       },
     );

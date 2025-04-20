@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/extensions/date_ext.dart';
 import '../../data/models/transaction_model.dart';
 
 class TransactionCard extends StatelessWidget {
@@ -7,26 +8,30 @@ class TransactionCard extends StatelessWidget {
     required this.transaction,
     super.key,
   });
-  final Transaction transaction;
+  final ITransactionModel transaction;
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
           children: <Widget>[
-            // Category Icon
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: transaction.color.withOpacity(0.1),
+                color: theme.colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                transaction.icon,
-                color: transaction.color,
-                size: 20,
+              child: Text(
+                transaction.category.isNotEmpty
+                    ? transaction.category[0].toUpperCase()
+                    : transaction.title[0].toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -53,7 +58,7 @@ class TransactionCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
-                              transaction.note,
+                              transaction.notes ?? '',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey.shade600,
@@ -65,14 +70,13 @@ class TransactionCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        transaction.amount > 0
-                            ? '+₹${transaction.amount}'
-                            : '-₹${transaction.amount.abs()}',
+                        transaction.costs > 0
+                            ? '+₹${transaction.costs}'
+                            : '-₹${transaction.costs.abs()}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: transaction.amount > 0
-                              ? Colors.green
-                              : Colors.red,
+                          color:
+                              transaction.costs > 0 ? Colors.green : Colors.red,
                         ),
                       ),
                     ],
@@ -81,22 +85,23 @@ class TransactionCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
+                      if (transaction.category.isNotEmpty)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Text(
+                            transaction.category,
+                            style: const TextStyle(fontSize: 10),
+                          ),
                         ),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.shade300),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Text(
-                          transaction.category,
-                          style: const TextStyle(fontSize: 10),
-                        ),
-                      ),
                       Text(
-                        transaction.date,
+                        transaction.date.friendly,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey.shade600,

@@ -3,6 +3,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'transaction_model.freezed.dart';
 part 'transaction_model.g.dart';
 
+abstract class ITransactionModel {
+  DateTime get date;
+  String get title;
+  String? get notes;
+  String get category;
+  double get costs;
+}
+
 class DateTimeConverter implements JsonConverter<DateTime, int> {
   const DateTimeConverter();
 
@@ -14,12 +22,12 @@ class DateTimeConverter implements JsonConverter<DateTime, int> {
 }
 
 @freezed
-abstract class CreditModel with _$CreditModel {
+abstract class CreditModel with _$CreditModel implements ITransactionModel {
   const factory CreditModel({
-    required String category,
     required String title,
     required double costs,
     @DateTimeConverter() required DateTime date,
+    @Default('') String category,
     String? notes,
   }) = _CreditModel;
 
@@ -28,7 +36,7 @@ abstract class CreditModel with _$CreditModel {
 }
 
 @freezed
-abstract class DebitModel with _$DebitModel {
+abstract class DebitModel with _$DebitModel implements ITransactionModel {
   const factory DebitModel({
     required String category,
     required String title,

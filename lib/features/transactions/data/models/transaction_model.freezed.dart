@@ -15,11 +15,11 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$CreditModel {
-  String get category;
   String get title;
   double get costs;
   @DateTimeConverter()
   DateTime get date;
+  String get category;
   String? get notes;
 
   /// Create a copy of CreditModel
@@ -37,22 +37,22 @@ mixin _$CreditModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CreditModel &&
-            (identical(other.category, category) ||
-                other.category == category) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.costs, costs) || other.costs == costs) &&
             (identical(other.date, date) || other.date == date) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.notes, notes) || other.notes == notes));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, category, title, costs, date, notes);
+      Object.hash(runtimeType, title, costs, date, category, notes);
 
   @override
   String toString() {
-    return 'CreditModel(category: $category, title: $title, costs: $costs, date: $date, notes: $notes)';
+    return 'CreditModel(title: $title, costs: $costs, date: $date, category: $category, notes: $notes)';
   }
 }
 
@@ -63,10 +63,10 @@ abstract mixin class $CreditModelCopyWith<$Res> {
       _$CreditModelCopyWithImpl;
   @useResult
   $Res call(
-      {String category,
-      String title,
+      {String title,
       double costs,
       @DateTimeConverter() DateTime date,
+      String category,
       String? notes});
 }
 
@@ -82,17 +82,13 @@ class _$CreditModelCopyWithImpl<$Res> implements $CreditModelCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? category = null,
     Object? title = null,
     Object? costs = null,
     Object? date = null,
+    Object? category = null,
     Object? notes = freezed,
   }) {
     return _then(_self.copyWith(
-      category: null == category
-          ? _self.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -105,6 +101,10 @@ class _$CreditModelCopyWithImpl<$Res> implements $CreditModelCopyWith<$Res> {
           ? _self.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      category: null == category
+          ? _self.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
       notes: freezed == notes
           ? _self.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -117,16 +117,14 @@ class _$CreditModelCopyWithImpl<$Res> implements $CreditModelCopyWith<$Res> {
 @JsonSerializable()
 class _CreditModel implements CreditModel {
   const _CreditModel(
-      {required this.category,
-      required this.title,
+      {required this.title,
       required this.costs,
       @DateTimeConverter() required this.date,
+      this.category = '',
       this.notes});
   factory _CreditModel.fromJson(Map<String, dynamic> json) =>
       _$CreditModelFromJson(json);
 
-  @override
-  final String category;
   @override
   final String title;
   @override
@@ -134,6 +132,9 @@ class _CreditModel implements CreditModel {
   @override
   @DateTimeConverter()
   final DateTime date;
+  @override
+  @JsonKey()
+  final String category;
   @override
   final String? notes;
 
@@ -157,22 +158,22 @@ class _CreditModel implements CreditModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CreditModel &&
-            (identical(other.category, category) ||
-                other.category == category) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.costs, costs) || other.costs == costs) &&
             (identical(other.date, date) || other.date == date) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.notes, notes) || other.notes == notes));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, category, title, costs, date, notes);
+      Object.hash(runtimeType, title, costs, date, category, notes);
 
   @override
   String toString() {
-    return 'CreditModel(category: $category, title: $title, costs: $costs, date: $date, notes: $notes)';
+    return 'CreditModel(title: $title, costs: $costs, date: $date, category: $category, notes: $notes)';
   }
 }
 
@@ -185,10 +186,10 @@ abstract mixin class _$CreditModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String category,
-      String title,
+      {String title,
       double costs,
       @DateTimeConverter() DateTime date,
+      String category,
       String? notes});
 }
 
@@ -204,17 +205,13 @@ class __$CreditModelCopyWithImpl<$Res> implements _$CreditModelCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? category = null,
     Object? title = null,
     Object? costs = null,
     Object? date = null,
+    Object? category = null,
     Object? notes = freezed,
   }) {
     return _then(_CreditModel(
-      category: null == category
-          ? _self.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -227,6 +224,10 @@ class __$CreditModelCopyWithImpl<$Res> implements _$CreditModelCopyWith<$Res> {
           ? _self.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      category: null == category
+          ? _self.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
       notes: freezed == notes
           ? _self.notes
           : notes // ignore: cast_nullable_to_non_nullable
