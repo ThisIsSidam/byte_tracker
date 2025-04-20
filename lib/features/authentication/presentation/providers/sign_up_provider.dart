@@ -38,8 +38,6 @@ class NewUserState extends _$NewUserState {
   }) {
     state = NewUser(
       email: email ?? state.email,
-      name: name ?? state.name,
-      aadhaar: aadhaar ?? state.aadhaar,
       password: password ?? state.password,
     );
   }

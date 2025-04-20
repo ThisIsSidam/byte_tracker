@@ -170,7 +170,7 @@ class _SignUpDBProviderElement
   NewUser get user => (origin as SignUpDBProvider).user;
 }
 
-String _$newUserStateHash() => r'83116e4ec9d870563df2d6ba6d55d757fcbc7f44';
+String _$newUserStateHash() => r'1f37ce6b49cafc1fa44520c0d65bd9e23d2b2561';
 
 /// See also [NewUserState].
 @ProviderFor(NewUserState)
