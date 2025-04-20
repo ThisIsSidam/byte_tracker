@@ -21,7 +21,7 @@ class SplashScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text('Something went Wrong!'),
+              Text(error.toString()),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => ref.invalidate(appStartupProvider),

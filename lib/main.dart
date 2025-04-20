@@ -10,6 +10,7 @@ import 'features/app_startup/presentation/provider/initial_screen_provider.dart'
 import 'features/app_startup/presentation/screens/splash_screen.dart';
 import 'features/authentication/presentation/screens/sign_in_screen.dart';
 import 'features/dashboard/presentation/screens/app_dashboard.dart';
+import 'features/dashboard/presentation/screens/connect_bank_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -31,7 +32,9 @@ class MyApp extends ConsumerWidget {
             ? const SignInScreen()
             : route == AppRoute.dashboardHome
                 ? const AppDashboard()
-                : _buildErrorScreen(ref);
+                : route == AppRoute.connectBank
+                    ? const ConnectBankScreen()
+                    : _buildErrorScreen(ref);
     return MaterialApp(
       routes: appRoutes(),
       home: currentScreen,

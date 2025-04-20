@@ -3,6 +3,7 @@ enum AppRoute {
   signIn('/signIn'),
   signUp('/signUp'),
   dashboardHome('/home'),
+  connectBank('connectBank'),
   ;
 
   const AppRoute(this.path);
