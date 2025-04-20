@@ -6,13 +6,17 @@ part 'app_user_model.g.dart';
 @freezed
 abstract class AppUser with _$AppUser {
   const factory AppUser({
-    @JsonKey(name: 'id_') required String id,
-    required String username,
+    @JsonKey(name: '_id') required String id,
+    required String firstName,
+    required String lastName,
+    required String aadharId,
     required String email,
-    required String password,
-    @JsonKey(name: 'gross_amount') required double grossAmount,
-    required double alertOnRemaining,
-    required double limitForDay,
+    @JsonKey(name: 'grossAmount') required int grossAmount,
+    @JsonKey(name: 'alertOnRemaigning') required int alertOnRemaigning,
+    @JsonKey(name: 'limitForDay') required int limitForDay,
+    @JsonKey(name: 'lastBankSync') required int lastBankSync,
+    required DateTime createdAt,
+    required DateTime updatedAt,
   }) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>

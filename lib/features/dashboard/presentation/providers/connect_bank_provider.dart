@@ -26,10 +26,10 @@ Future<bool> connectToBank(
       throw Exception('User is not logged in');
     }
     final Map<String, dynamic> body = <String, dynamic>{
-      'first_name': firstName,
-      'last_name': lastName,
-      'aadhaar': aadhaar,
+      'firstName': firstName,
+      'lastName': lastName,
       'email': email,
+      'aadharId': aadhaar,
     };
     final Response<JSON> response = await apiService.request<JSON>(
       method: HttpMethod.post,
@@ -48,7 +48,9 @@ Future<bool> connectToBank(
     }
 
     await FirebaseFirestore.instance.collection('users').doc(userId).set(
-        <String, dynamic>{'backendId': backendId}, SetOptions(merge: true));
+      <String, dynamic>{'backendId': backendId},
+      SetOptions(merge: true),
+    );
   } catch (e) {
     log('Error connecting to bank: $e');
     return false;

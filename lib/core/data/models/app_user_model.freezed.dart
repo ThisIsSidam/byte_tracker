@@ -15,15 +15,22 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$AppUser {
-  @JsonKey(name: 'id_')
+  @JsonKey(name: '_id')
   String get id;
-  String get username;
+  String get firstName;
+  String get lastName;
+  String get aadharId;
   String get email;
-  String get password;
-  @JsonKey(name: 'gross_amount')
-  double get grossAmount;
-  double get alertOnRemaining;
-  double get limitForDay;
+  @JsonKey(name: 'grossAmount')
+  int get grossAmount;
+  @JsonKey(name: 'alertOnRemaigning')
+  int get alertOnRemaigning;
+  @JsonKey(name: 'limitForDay')
+  int get limitForDay;
+  @JsonKey(name: 'lastBankSync')
+  int get lastBankSync;
+  DateTime get createdAt;
+  DateTime get updatedAt;
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
@@ -41,27 +48,46 @@ mixin _$AppUser {
         (other.runtimeType == runtimeType &&
             other is AppUser &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.aadharId, aadharId) ||
+                other.aadharId == aadharId) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
             (identical(other.grossAmount, grossAmount) ||
                 other.grossAmount == grossAmount) &&
-            (identical(other.alertOnRemaining, alertOnRemaining) ||
-                other.alertOnRemaining == alertOnRemaining) &&
+            (identical(other.alertOnRemaigning, alertOnRemaigning) ||
+                other.alertOnRemaigning == alertOnRemaigning) &&
             (identical(other.limitForDay, limitForDay) ||
-                other.limitForDay == limitForDay));
+                other.limitForDay == limitForDay) &&
+            (identical(other.lastBankSync, lastBankSync) ||
+                other.lastBankSync == lastBankSync) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, username, email, password,
-      grossAmount, alertOnRemaining, limitForDay);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      firstName,
+      lastName,
+      aadharId,
+      email,
+      grossAmount,
+      alertOnRemaigning,
+      limitForDay,
+      lastBankSync,
+      createdAt,
+      updatedAt);
 
   @override
   String toString() {
-    return 'AppUser(id: $id, username: $username, email: $email, password: $password, grossAmount: $grossAmount, alertOnRemaining: $alertOnRemaining, limitForDay: $limitForDay)';
+    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -71,13 +97,17 @@ abstract mixin class $AppUserCopyWith<$Res> {
       _$AppUserCopyWithImpl;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_') String id,
-      String username,
+      {@JsonKey(name: '_id') String id,
+      String firstName,
+      String lastName,
+      String aadharId,
       String email,
-      String password,
-      @JsonKey(name: 'gross_amount') double grossAmount,
-      double alertOnRemaining,
-      double limitForDay});
+      @JsonKey(name: 'grossAmount') int grossAmount,
+      @JsonKey(name: 'alertOnRemaigning') int alertOnRemaigning,
+      @JsonKey(name: 'limitForDay') int limitForDay,
+      @JsonKey(name: 'lastBankSync') int lastBankSync,
+      DateTime createdAt,
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -93,42 +123,62 @@ class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
   @override
   $Res call({
     Object? id = null,
-    Object? username = null,
+    Object? firstName = null,
+    Object? lastName = null,
+    Object? aadharId = null,
     Object? email = null,
-    Object? password = null,
     Object? grossAmount = null,
-    Object? alertOnRemaining = null,
+    Object? alertOnRemaigning = null,
     Object? limitForDay = null,
+    Object? lastBankSync = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      username: null == username
-          ? _self.username
-          : username // ignore: cast_nullable_to_non_nullable
+      firstName: null == firstName
+          ? _self.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _self.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+      aadharId: null == aadharId
+          ? _self.aadharId
+          : aadharId // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _self.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
-          ? _self.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
       grossAmount: null == grossAmount
           ? _self.grossAmount
           : grossAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      alertOnRemaining: null == alertOnRemaining
-          ? _self.alertOnRemaining
-          : alertOnRemaining // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
+      alertOnRemaigning: null == alertOnRemaigning
+          ? _self.alertOnRemaigning
+          : alertOnRemaigning // ignore: cast_nullable_to_non_nullable
+              as int,
       limitForDay: null == limitForDay
           ? _self.limitForDay
           : limitForDay // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
+      lastBankSync: null == lastBankSync
+          ? _self.lastBankSync
+          : lastBankSync // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _self.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -137,32 +187,47 @@ class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
 @JsonSerializable()
 class _AppUser implements AppUser {
   const _AppUser(
-      {@JsonKey(name: 'id_') required this.id,
-      required this.username,
+      {@JsonKey(name: '_id') required this.id,
+      required this.firstName,
+      required this.lastName,
+      required this.aadharId,
       required this.email,
-      required this.password,
-      @JsonKey(name: 'gross_amount') required this.grossAmount,
-      required this.alertOnRemaining,
-      required this.limitForDay});
+      @JsonKey(name: 'grossAmount') required this.grossAmount,
+      @JsonKey(name: 'alertOnRemaigning') required this.alertOnRemaigning,
+      @JsonKey(name: 'limitForDay') required this.limitForDay,
+      @JsonKey(name: 'lastBankSync') required this.lastBankSync,
+      required this.createdAt,
+      required this.updatedAt});
   factory _AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
 
   @override
-  @JsonKey(name: 'id_')
+  @JsonKey(name: '_id')
   final String id;
   @override
-  final String username;
+  final String firstName;
+  @override
+  final String lastName;
+  @override
+  final String aadharId;
   @override
   final String email;
   @override
-  final String password;
+  @JsonKey(name: 'grossAmount')
+  final int grossAmount;
   @override
-  @JsonKey(name: 'gross_amount')
-  final double grossAmount;
+  @JsonKey(name: 'alertOnRemaigning')
+  final int alertOnRemaigning;
   @override
-  final double alertOnRemaining;
+  @JsonKey(name: 'limitForDay')
+  final int limitForDay;
   @override
-  final double limitForDay;
+  @JsonKey(name: 'lastBankSync')
+  final int lastBankSync;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
@@ -185,27 +250,46 @@ class _AppUser implements AppUser {
         (other.runtimeType == runtimeType &&
             other is _AppUser &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.aadharId, aadharId) ||
+                other.aadharId == aadharId) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
             (identical(other.grossAmount, grossAmount) ||
                 other.grossAmount == grossAmount) &&
-            (identical(other.alertOnRemaining, alertOnRemaining) ||
-                other.alertOnRemaining == alertOnRemaining) &&
+            (identical(other.alertOnRemaigning, alertOnRemaigning) ||
+                other.alertOnRemaigning == alertOnRemaigning) &&
             (identical(other.limitForDay, limitForDay) ||
-                other.limitForDay == limitForDay));
+                other.limitForDay == limitForDay) &&
+            (identical(other.lastBankSync, lastBankSync) ||
+                other.lastBankSync == lastBankSync) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, username, email, password,
-      grossAmount, alertOnRemaining, limitForDay);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      firstName,
+      lastName,
+      aadharId,
+      email,
+      grossAmount,
+      alertOnRemaigning,
+      limitForDay,
+      lastBankSync,
+      createdAt,
+      updatedAt);
 
   @override
   String toString() {
-    return 'AppUser(id: $id, username: $username, email: $email, password: $password, grossAmount: $grossAmount, alertOnRemaining: $alertOnRemaining, limitForDay: $limitForDay)';
+    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -216,13 +300,17 @@ abstract mixin class _$AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_') String id,
-      String username,
+      {@JsonKey(name: '_id') String id,
+      String firstName,
+      String lastName,
+      String aadharId,
       String email,
-      String password,
-      @JsonKey(name: 'gross_amount') double grossAmount,
-      double alertOnRemaining,
-      double limitForDay});
+      @JsonKey(name: 'grossAmount') int grossAmount,
+      @JsonKey(name: 'alertOnRemaigning') int alertOnRemaigning,
+      @JsonKey(name: 'limitForDay') int limitForDay,
+      @JsonKey(name: 'lastBankSync') int lastBankSync,
+      DateTime createdAt,
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -238,42 +326,62 @@ class __$AppUserCopyWithImpl<$Res> implements _$AppUserCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
-    Object? username = null,
+    Object? firstName = null,
+    Object? lastName = null,
+    Object? aadharId = null,
     Object? email = null,
-    Object? password = null,
     Object? grossAmount = null,
-    Object? alertOnRemaining = null,
+    Object? alertOnRemaigning = null,
     Object? limitForDay = null,
+    Object? lastBankSync = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_AppUser(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      username: null == username
-          ? _self.username
-          : username // ignore: cast_nullable_to_non_nullable
+      firstName: null == firstName
+          ? _self.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _self.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+      aadharId: null == aadharId
+          ? _self.aadharId
+          : aadharId // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _self.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
-          ? _self.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
       grossAmount: null == grossAmount
           ? _self.grossAmount
           : grossAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      alertOnRemaining: null == alertOnRemaining
-          ? _self.alertOnRemaining
-          : alertOnRemaining // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
+      alertOnRemaigning: null == alertOnRemaigning
+          ? _self.alertOnRemaigning
+          : alertOnRemaigning // ignore: cast_nullable_to_non_nullable
+              as int,
       limitForDay: null == limitForDay
           ? _self.limitForDay
           : limitForDay // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
+      lastBankSync: null == lastBankSync
+          ? _self.lastBankSync
+          : lastBankSync // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _self.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }

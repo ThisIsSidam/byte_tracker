@@ -7,21 +7,29 @@ part of 'app_user_model.dart';
 // **************************************************************************
 
 _AppUser _$AppUserFromJson(Map<String, dynamic> json) => _AppUser(
-      id: json['id_'] as String,
-      username: json['username'] as String,
+      id: json['_id'] as String,
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
+      aadharId: json['aadharId'] as String,
       email: json['email'] as String,
-      password: json['password'] as String,
-      grossAmount: (json['gross_amount'] as num).toDouble(),
-      alertOnRemaining: (json['alertOnRemaining'] as num).toDouble(),
-      limitForDay: (json['limitForDay'] as num).toDouble(),
+      grossAmount: (json['grossAmount'] as num).toInt(),
+      alertOnRemaigning: (json['alertOnRemaigning'] as num).toInt(),
+      limitForDay: (json['limitForDay'] as num).toInt(),
+      lastBankSync: (json['lastBankSync'] as num).toInt(),
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
 
 Map<String, dynamic> _$AppUserToJson(_AppUser instance) => <String, dynamic>{
-      'id_': instance.id,
-      'username': instance.username,
+      '_id': instance.id,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'aadharId': instance.aadharId,
       'email': instance.email,
-      'password': instance.password,
-      'gross_amount': instance.grossAmount,
-      'alertOnRemaining': instance.alertOnRemaining,
+      'grossAmount': instance.grossAmount,
+      'alertOnRemaigning': instance.alertOnRemaigning,
       'limitForDay': instance.limitForDay,
+      'lastBankSync': instance.lastBankSync,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'updatedAt': instance.updatedAt.toIso8601String(),
     };
