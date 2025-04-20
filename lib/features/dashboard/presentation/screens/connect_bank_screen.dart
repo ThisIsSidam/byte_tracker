@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../../shared/widgets/buttons/loading_button.dart';
+import '../../../../shared/widgets/future_response_dialog.dart';
+import '../providers/connect_bank_provider.dart';
+
 class ConnectBankScreen extends HookConsumerWidget {
   const ConnectBankScreen({super.key});
 
@@ -49,7 +53,7 @@ class ConnectBankScreen extends HookConsumerWidget {
               const SizedBox(height: 16),
               _buildAadhaarField(),
               const SizedBox(height: 24),
-              _buildConnectButton(context, form),
+              _buildConnectButton(context, ref, form),
             ],
           ),
         ),
@@ -125,17 +129,21 @@ class ConnectBankScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _buildConnectButton(BuildContext context, FormGroup form) {
+  Widget _buildConnectButton(
+    BuildContext context,
+    WidgetRef ref,
+    FormGroup form,
+  ) {
     return ReactiveFormConsumer(
       builder: (BuildContext context, FormGroup form, Widget? child) {
         return SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
+          child: LoadingButton(
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
             ),
             onPressed: form.valid
-                ? () {
+                ? () async {
                     // Handle form submission here
                     final String firstName =
                         form.control('firstName').value as String;
@@ -144,7 +152,20 @@ class ConnectBankScreen extends HookConsumerWidget {
                     final String aadhaar =
                         form.control('aadhaar').value as String;
 
-                    // Add your logic to connect bank account
+                    final Future<bool> updateStatus = ref.read(
+                      connectToBankProvider(
+                        firstName,
+                        lastName,
+                        aadhaar,
+                      ).future,
+                    );
+
+                    final bool? updateResult = await showDialog<bool>(
+                      context: context,
+                      builder: (BuildContext context) => FutureResponseDialog(
+                        futureBool: updateStatus,
+                      ),
+                    );
                   }
                 : null,
             child: const Text(

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,4 +21,17 @@ ApiService apiService(Ref ref) {
       AuthInterceptor(ref),
     ],
   );
+}
+
+@riverpod
+Future<String?> userIdFromFirebase(Ref ref) async {
+  final String? uid = FirebaseAuth.instance.currentUser?.uid;
+  if (uid == null) {
+    return null;
+  }
+  final DocumentSnapshot<Map<String, dynamic>> doc =
+      await FirebaseFirestore.instance.collection('users').doc(uid).get();
+  if (!doc.exists) return null;
+  final Map<String, dynamic>? data = doc.data();
+  return data?['backendId'] as String?;
 }

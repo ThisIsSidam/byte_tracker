@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,24 +8,21 @@ import 'global_providers.dart';
 
 part 'app_user_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<AppUser?> appUser(Ref ref) async {
-  final String? uid = FirebaseAuth.instance.currentUser?.uid;
-  if (uid == null) {
+  final String? customId = await ref.watch(userIdFromFirebaseProvider.future);
+
+  if (customId == null) {
     return null;
   }
-  final DocumentSnapshot<Map<String, dynamic>> doc =
-      await FirebaseFirestore.instance.collection('users').doc(uid).get();
-  if (!doc.exists) return null;
-  final Map<String, dynamic>? data = doc.data();
-  final String? customId = data?['customId'] as String?;
-
-  // Use id to get the user from the API
 
   final ApiService apiService = ref.watch(apiServiceProvider);
   final Response<JSON> response = await apiService.request<JSON>(
-    '/user',
+    '/api/',
     method: HttpMethod.get,
+    queryParams: <String, dynamic>{
+      'id': customId,
+    },
   );
   if (response.data != null) {
     return AppUser.fromJson(response.data!);

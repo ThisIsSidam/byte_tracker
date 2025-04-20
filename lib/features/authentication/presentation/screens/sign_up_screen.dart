@@ -8,7 +8,7 @@ import '../../../../app/router/router.dart';
 import '../../../../shared/widgets/buttons/loading_button.dart';
 import '../../../../shared/widgets/riverpod_widgets/state_selector.dart';
 import '../providers/auth_notifier.dart';
-import '../providers/sign_up_provider.dart';
+import '../providers/new_user_provider.dart';
 
 class SignUpScreen extends HookConsumerWidget {
   const SignUpScreen({super.key});

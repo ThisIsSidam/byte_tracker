@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../app/router/router.dart';
 import '../../../../core/services/auth_interceptor.dart';
 import '../../domain/entities/new_user.dart';
-import 'sign_up_provider.dart';
+import 'new_user_provider.dart';
 
 part 'auth_notifier.g.dart';
 part 'auth_state.dart';
