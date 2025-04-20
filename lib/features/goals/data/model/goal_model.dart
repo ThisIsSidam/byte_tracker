@@ -12,7 +12,7 @@ abstract class GoalModel with _$GoalModel {
     required double amount,
     required double currentlySaved,
     required DateTime createdAt,
-    required DateTime reminderAt,
+    required DateTime remainderAt,
   }) = _GoalModel;
 
   factory GoalModel.fromJson(Map<String, dynamic> json) =>

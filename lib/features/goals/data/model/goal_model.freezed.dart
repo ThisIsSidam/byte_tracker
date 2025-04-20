@@ -21,7 +21,7 @@ mixin _$GoalModel {
   double get amount;
   double get currentlySaved;
   DateTime get createdAt;
-  DateTime get reminderAt;
+  DateTime get remainderAt;
 
   /// Create a copy of GoalModel
   /// with the given fields replaced by the non-null parameter values.
@@ -48,18 +48,18 @@ mixin _$GoalModel {
                 other.currentlySaved == currentlySaved) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
-            (identical(other.reminderAt, reminderAt) ||
-                other.reminderAt == reminderAt));
+            (identical(other.remainderAt, remainderAt) ||
+                other.remainderAt == remainderAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, isShortTerm, priority, title,
-      amount, currentlySaved, createdAt, reminderAt);
+      amount, currentlySaved, createdAt, remainderAt);
 
   @override
   String toString() {
-    return 'GoalModel(isShortTerm: $isShortTerm, priority: $priority, title: $title, amount: $amount, currentlySaved: $currentlySaved, createdAt: $createdAt, reminderAt: $reminderAt)';
+    return 'GoalModel(isShortTerm: $isShortTerm, priority: $priority, title: $title, amount: $amount, currentlySaved: $currentlySaved, createdAt: $createdAt, remainderAt: $remainderAt)';
   }
 }
 
@@ -75,7 +75,7 @@ abstract mixin class $GoalModelCopyWith<$Res> {
       double amount,
       double currentlySaved,
       DateTime createdAt,
-      DateTime reminderAt});
+      DateTime remainderAt});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class _$GoalModelCopyWithImpl<$Res> implements $GoalModelCopyWith<$Res> {
     Object? amount = null,
     Object? currentlySaved = null,
     Object? createdAt = null,
-    Object? reminderAt = null,
+    Object? remainderAt = null,
   }) {
     return _then(_self.copyWith(
       isShortTerm: null == isShortTerm
@@ -123,9 +123,9 @@ class _$GoalModelCopyWithImpl<$Res> implements $GoalModelCopyWith<$Res> {
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      reminderAt: null == reminderAt
-          ? _self.reminderAt
-          : reminderAt // ignore: cast_nullable_to_non_nullable
+      remainderAt: null == remainderAt
+          ? _self.remainderAt
+          : remainderAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
   }
@@ -141,7 +141,7 @@ class _GoalModel implements GoalModel {
       required this.amount,
       required this.currentlySaved,
       required this.createdAt,
-      required this.reminderAt});
+      required this.remainderAt});
   factory _GoalModel.fromJson(Map<String, dynamic> json) =>
       _$GoalModelFromJson(json);
 
@@ -158,7 +158,7 @@ class _GoalModel implements GoalModel {
   @override
   final DateTime createdAt;
   @override
-  final DateTime reminderAt;
+  final DateTime remainderAt;
 
   /// Create a copy of GoalModel
   /// with the given fields replaced by the non-null parameter values.
@@ -190,18 +190,18 @@ class _GoalModel implements GoalModel {
                 other.currentlySaved == currentlySaved) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
-            (identical(other.reminderAt, reminderAt) ||
-                other.reminderAt == reminderAt));
+            (identical(other.remainderAt, remainderAt) ||
+                other.remainderAt == remainderAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, isShortTerm, priority, title,
-      amount, currentlySaved, createdAt, reminderAt);
+      amount, currentlySaved, createdAt, remainderAt);
 
   @override
   String toString() {
-    return 'GoalModel(isShortTerm: $isShortTerm, priority: $priority, title: $title, amount: $amount, currentlySaved: $currentlySaved, createdAt: $createdAt, reminderAt: $reminderAt)';
+    return 'GoalModel(isShortTerm: $isShortTerm, priority: $priority, title: $title, amount: $amount, currentlySaved: $currentlySaved, createdAt: $createdAt, remainderAt: $remainderAt)';
   }
 }
 
@@ -220,7 +220,7 @@ abstract mixin class _$GoalModelCopyWith<$Res>
       double amount,
       double currentlySaved,
       DateTime createdAt,
-      DateTime reminderAt});
+      DateTime remainderAt});
 }
 
 /// @nodoc
@@ -241,7 +241,7 @@ class __$GoalModelCopyWithImpl<$Res> implements _$GoalModelCopyWith<$Res> {
     Object? amount = null,
     Object? currentlySaved = null,
     Object? createdAt = null,
-    Object? reminderAt = null,
+    Object? remainderAt = null,
   }) {
     return _then(_GoalModel(
       isShortTerm: null == isShortTerm
@@ -268,9 +268,9 @@ class __$GoalModelCopyWithImpl<$Res> implements _$GoalModelCopyWith<$Res> {
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      reminderAt: null == reminderAt
-          ? _self.reminderAt
-          : reminderAt // ignore: cast_nullable_to_non_nullable
+      remainderAt: null == remainderAt
+          ? _self.remainderAt
+          : remainderAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
   }

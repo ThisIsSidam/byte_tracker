@@ -13,7 +13,7 @@ _GoalModel _$GoalModelFromJson(Map<String, dynamic> json) => _GoalModel(
       amount: (json['amount'] as num).toDouble(),
       currentlySaved: (json['currentlySaved'] as num).toDouble(),
       createdAt: DateTime.parse(json['createdAt'] as String),
-      reminderAt: DateTime.parse(json['reminderAt'] as String),
+      remainderAt: DateTime.parse(json['remainderAt'] as String),
     );
 
 Map<String, dynamic> _$GoalModelToJson(_GoalModel instance) =>
@@ -24,5 +24,5 @@ Map<String, dynamic> _$GoalModelToJson(_GoalModel instance) =>
       'amount': instance.amount,
       'currentlySaved': instance.currentlySaved,
       'createdAt': instance.createdAt.toIso8601String(),
-      'reminderAt': instance.reminderAt.toIso8601String(),
+      'remainderAt': instance.remainderAt.toIso8601String(),
     };

@@ -68,7 +68,7 @@ class GoalCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  goal.reminderAt.friendly,
+                  goal.remainderAt.friendly,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey.shade600,
