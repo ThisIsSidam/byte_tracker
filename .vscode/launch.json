@@ -9,7 +9,8 @@
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
-                "dev"
+                "dev",
+                "--dart-define-from-file=.env.json"
             ]
         },
         {
@@ -20,7 +21,8 @@
             "program": "lib/main.dart",
             "args": [
                 "--flavor",
-                "prod"
+                "prod",
+                "--dart-define-from-file=.env.json"
             ]
         },
     ]
