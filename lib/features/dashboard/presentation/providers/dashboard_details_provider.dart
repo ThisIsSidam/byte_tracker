@@ -78,3 +78,41 @@ Future<num> getTodaysSpend(Ref ref) async {
     throw Exception('Failed to fetch gross debit');
   }
 }
+
+@riverpod
+Future<List<double>> getWeeklySpends(Ref ref) async {
+  final AppUser user = ref.watch(appUserProvider).value!;
+  final ApiService apiService = ref.watch(apiServiceProvider);
+  final DateTime now = DateTime.now();
+  final Response<JSON> response = await apiService.request<JSON>(
+    '/api/debits-filter',
+    method: HttpMethod.get,
+    queryParams: <String, dynamic>{
+      'id': user.id,
+      'after': DateTime(
+        now.year,
+        now.month,
+        now.day,
+      ).subtract(const Duration(days: 7)).millisecondsSinceEpoch,
+    },
+  );
+
+  if (response.data != null) {
+    final List<JSON> list =
+        (response.data!['data'] as List<dynamic>).cast<JSON>();
+    final List<DebitModel> debits = list.tryMap(DebitModel.fromJson);
+    final List<double> weeklySpends = List<double>.filled(7, 0);
+    final DateTime today = DateTime.now();
+
+    for (final DebitModel debit in debits) {
+      final int daysAgo = today.difference(debit.date).inDays;
+      if (daysAgo < 7) {
+        weeklySpends[daysAgo] += debit.costs;
+      }
+    }
+
+    return weeklySpends.reversed.toList();
+  } else {
+    throw Exception('Failed to fetch gross debit');
+  }
+}

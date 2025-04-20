@@ -57,5 +57,23 @@ final getTodaysSpendProvider = AutoDisposeFutureProvider<num>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef GetTodaysSpendRef = AutoDisposeFutureProviderRef<num>;
+String _$getWeeklySpendsHash() => r'd0ce107ac80046a1e9a84c0e23d086826b3cc180';
+
+/// See also [getWeeklySpends].
+@ProviderFor(getWeeklySpends)
+final getWeeklySpendsProvider =
+    AutoDisposeFutureProvider<List<double>>.internal(
+  getWeeklySpends,
+  name: r'getWeeklySpendsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getWeeklySpendsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetWeeklySpendsRef = AutoDisposeFutureProviderRef<List<double>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
