@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:restart_app/restart_app.dart';
 
 import '../../../../shared/widgets/buttons/loading_button.dart';
 import '../../../../shared/widgets/future_response_dialog.dart';
@@ -166,6 +167,10 @@ class ConnectBankScreen extends HookConsumerWidget {
                         futureBool: updateStatus,
                       ),
                     );
+
+                    if (true == updateResult) {
+                      await Restart.restartApp();
+                    }
                   }
                 : null,
             child: const Text(

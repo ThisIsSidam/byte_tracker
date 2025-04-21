@@ -32,7 +32,7 @@ class DashboardScreen extends ConsumerWidget {
           error: (Object e, _) => Center(
             child: Text(e.toString()),
           ),
-          loading: CircularProgressIndicator.new,
+          loading: () => const Center(child: CircularProgressIndicator()),
         ),
       ),
     );

@@ -35,6 +35,6 @@ class SplashScreen extends ConsumerWidget {
   }
 
   Widget _buildLoader() {
-    return const CircularProgressIndicator();
+    return const Center(child: CircularProgressIndicator());
   }
 }
