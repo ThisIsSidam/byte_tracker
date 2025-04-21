@@ -6,6 +6,7 @@ import '../../../../core/data/models/app_user_model.dart';
 import '../../../../core/extensions/num_ext.dart';
 import '../../../../core/providers/app_user_provider.dart';
 import '../../../../shared/widgets/riverpod_widgets/async_widget.dart';
+import '../../../authentication/presentation/providers/auth_notifier.dart';
 import '../providers/dashboard_details_provider.dart';
 import '../widgets/daily_expense_card.dart';
 import '../widgets/expense_trend_card.dart';
@@ -44,11 +45,22 @@ class DashboardScreen extends ConsumerWidget {
         spacing: 16,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Hi, ${user.firstName}! 👋',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                'Hi, ${user.firstName}! 👋',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.logout),
+                onPressed: () {
+                  ref.read(authNotifierProvider.notifier).signOut();
+                },
+              ),
+            ],
           ),
           Row(
             children: <Widget>[
