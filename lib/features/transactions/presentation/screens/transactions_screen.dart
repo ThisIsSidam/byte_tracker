@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../shared/widgets/riverpod_widgets/async_widget.dart';
+import '../../../app_startup/presentation/provider/sync_provider.dart';
 import '../../data/models/transaction_model.dart';
 import '../providers/transactions_provider.dart';
 import '../widgets/transaction_card.dart';
@@ -12,6 +13,7 @@ class TransactionsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(syncTransactionsProvider);
     final TabController tabController = useTabController(initialLength: 3);
     final ValueNotifier<String> searchQuery = useState('');
 
