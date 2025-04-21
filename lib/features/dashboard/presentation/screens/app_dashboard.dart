@@ -22,9 +22,6 @@ class AppDashboard extends HookConsumerWidget {
         return const TransactionsScreen();
       case 2:
         return const GoalsScreen();
-      case 3:
-        // TODO: Replace with ReportsScreen
-        return const DashboardScreen();
       default:
         return const DashboardScreen();
     }
@@ -67,11 +64,6 @@ class AppDashboard extends HookConsumerWidget {
           icon: Icon(Icons.flag),
           activeIcon: Icon(Icons.flag),
           label: 'Goals',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.bar_chart),
-          activeIcon: Icon(Icons.bar_chart),
-          label: 'Reports',
         ),
       ],
       currentIndex: currentScreen.value,
