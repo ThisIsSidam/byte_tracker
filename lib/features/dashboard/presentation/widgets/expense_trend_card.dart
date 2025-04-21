@@ -69,7 +69,7 @@ class ExpenseTrendCard extends ConsumerWidget {
               SizedBox(height: 16),
               SizedBox(
                 height: 200,
-                child: Placeholder(),
+                width: double.maxFinite,
               ),
             ],
           ),
