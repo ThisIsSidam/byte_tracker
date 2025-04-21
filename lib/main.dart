@@ -7,6 +7,7 @@ import 'app/router/routes_builder.dart';
 import 'app/theme/theme.dart';
 import 'features/app_startup/presentation/provider/app_startup_provider.dart';
 import 'features/app_startup/presentation/provider/initial_screen_provider.dart';
+import 'features/app_startup/presentation/provider/sync_provider.dart';
 import 'features/app_startup/presentation/screens/splash_screen.dart';
 import 'features/authentication/presentation/screens/sign_in_screen.dart';
 import 'features/dashboard/presentation/screens/app_dashboard.dart';
@@ -24,6 +25,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(syncTransactionsProvider);
     ref.listen(appStartupProvider, (_, __) {});
     final AppRoute? route = ref.watch(initialScreenProvider);
     final Widget currentScreen = route == null
