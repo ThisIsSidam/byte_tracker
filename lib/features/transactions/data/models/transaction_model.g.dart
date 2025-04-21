@@ -7,6 +7,7 @@ part of 'transaction_model.dart';
 // **************************************************************************
 
 _CreditModel _$CreditModelFromJson(Map<String, dynamic> json) => _CreditModel(
+      transactionId: json['_id'] as String,
       title: json['title'] as String,
       costs: (json['costs'] as num).toDouble(),
       date: const DateTimeConverter().fromJson((json['date'] as num).toInt()),
@@ -16,6 +17,7 @@ _CreditModel _$CreditModelFromJson(Map<String, dynamic> json) => _CreditModel(
 
 Map<String, dynamic> _$CreditModelToJson(_CreditModel instance) =>
     <String, dynamic>{
+      '_id': instance.transactionId,
       'title': instance.title,
       'costs': instance.costs,
       'date': const DateTimeConverter().toJson(instance.date),
@@ -24,6 +26,7 @@ Map<String, dynamic> _$CreditModelToJson(_CreditModel instance) =>
     };
 
 _DebitModel _$DebitModelFromJson(Map<String, dynamic> json) => _DebitModel(
+      transactionId: json['_id'] as String,
       category: json['category'] as String,
       title: json['title'] as String,
       costs: (json['costs'] as num).toDouble(),
@@ -33,6 +36,7 @@ _DebitModel _$DebitModelFromJson(Map<String, dynamic> json) => _DebitModel(
 
 Map<String, dynamic> _$DebitModelToJson(_DebitModel instance) =>
     <String, dynamic>{
+      '_id': instance.transactionId,
       'category': instance.category,
       'title': instance.title,
       'costs': instance.costs,

@@ -15,6 +15,8 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$CreditModel {
+  @JsonKey(name: '_id')
+  String get transactionId;
   String get title;
   double get costs;
   @DateTimeConverter()
@@ -37,6 +39,8 @@ mixin _$CreditModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CreditModel &&
+            (identical(other.transactionId, transactionId) ||
+                other.transactionId == transactionId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.costs, costs) || other.costs == costs) &&
             (identical(other.date, date) || other.date == date) &&
@@ -47,12 +51,12 @@ mixin _$CreditModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, costs, date, category, notes);
+  int get hashCode => Object.hash(
+      runtimeType, transactionId, title, costs, date, category, notes);
 
   @override
   String toString() {
-    return 'CreditModel(title: $title, costs: $costs, date: $date, category: $category, notes: $notes)';
+    return 'CreditModel(transactionId: $transactionId, title: $title, costs: $costs, date: $date, category: $category, notes: $notes)';
   }
 }
 
@@ -63,7 +67,8 @@ abstract mixin class $CreditModelCopyWith<$Res> {
       _$CreditModelCopyWithImpl;
   @useResult
   $Res call(
-      {String title,
+      {@JsonKey(name: '_id') String transactionId,
+      String title,
       double costs,
       @DateTimeConverter() DateTime date,
       String category,
@@ -82,6 +87,7 @@ class _$CreditModelCopyWithImpl<$Res> implements $CreditModelCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? transactionId = null,
     Object? title = null,
     Object? costs = null,
     Object? date = null,
@@ -89,6 +95,10 @@ class _$CreditModelCopyWithImpl<$Res> implements $CreditModelCopyWith<$Res> {
     Object? notes = freezed,
   }) {
     return _then(_self.copyWith(
+      transactionId: null == transactionId
+          ? _self.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -117,7 +127,8 @@ class _$CreditModelCopyWithImpl<$Res> implements $CreditModelCopyWith<$Res> {
 @JsonSerializable()
 class _CreditModel implements CreditModel {
   const _CreditModel(
-      {required this.title,
+      {@JsonKey(name: '_id') required this.transactionId,
+      required this.title,
       required this.costs,
       @DateTimeConverter() required this.date,
       this.category = '',
@@ -125,6 +136,9 @@ class _CreditModel implements CreditModel {
   factory _CreditModel.fromJson(Map<String, dynamic> json) =>
       _$CreditModelFromJson(json);
 
+  @override
+  @JsonKey(name: '_id')
+  final String transactionId;
   @override
   final String title;
   @override
@@ -158,6 +172,8 @@ class _CreditModel implements CreditModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CreditModel &&
+            (identical(other.transactionId, transactionId) ||
+                other.transactionId == transactionId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.costs, costs) || other.costs == costs) &&
             (identical(other.date, date) || other.date == date) &&
@@ -168,12 +184,12 @@ class _CreditModel implements CreditModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, costs, date, category, notes);
+  int get hashCode => Object.hash(
+      runtimeType, transactionId, title, costs, date, category, notes);
 
   @override
   String toString() {
-    return 'CreditModel(title: $title, costs: $costs, date: $date, category: $category, notes: $notes)';
+    return 'CreditModel(transactionId: $transactionId, title: $title, costs: $costs, date: $date, category: $category, notes: $notes)';
   }
 }
 
@@ -186,7 +202,8 @@ abstract mixin class _$CreditModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String title,
+      {@JsonKey(name: '_id') String transactionId,
+      String title,
       double costs,
       @DateTimeConverter() DateTime date,
       String category,
@@ -205,6 +222,7 @@ class __$CreditModelCopyWithImpl<$Res> implements _$CreditModelCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
+    Object? transactionId = null,
     Object? title = null,
     Object? costs = null,
     Object? date = null,
@@ -212,6 +230,10 @@ class __$CreditModelCopyWithImpl<$Res> implements _$CreditModelCopyWith<$Res> {
     Object? notes = freezed,
   }) {
     return _then(_CreditModel(
+      transactionId: null == transactionId
+          ? _self.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -238,6 +260,8 @@ class __$CreditModelCopyWithImpl<$Res> implements _$CreditModelCopyWith<$Res> {
 
 /// @nodoc
 mixin _$DebitModel {
+  @JsonKey(name: '_id')
+  String get transactionId;
   String get category;
   String get title;
   double get costs;
@@ -260,6 +284,8 @@ mixin _$DebitModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DebitModel &&
+            (identical(other.transactionId, transactionId) ||
+                other.transactionId == transactionId) &&
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.title, title) || other.title == title) &&
@@ -270,12 +296,12 @@ mixin _$DebitModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, category, title, costs, date, notes);
+  int get hashCode => Object.hash(
+      runtimeType, transactionId, category, title, costs, date, notes);
 
   @override
   String toString() {
-    return 'DebitModel(category: $category, title: $title, costs: $costs, date: $date, notes: $notes)';
+    return 'DebitModel(transactionId: $transactionId, category: $category, title: $title, costs: $costs, date: $date, notes: $notes)';
   }
 }
 
@@ -286,7 +312,8 @@ abstract mixin class $DebitModelCopyWith<$Res> {
       _$DebitModelCopyWithImpl;
   @useResult
   $Res call(
-      {String category,
+      {@JsonKey(name: '_id') String transactionId,
+      String category,
       String title,
       double costs,
       @DateTimeConverter() DateTime date,
@@ -305,6 +332,7 @@ class _$DebitModelCopyWithImpl<$Res> implements $DebitModelCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? transactionId = null,
     Object? category = null,
     Object? title = null,
     Object? costs = null,
@@ -312,6 +340,10 @@ class _$DebitModelCopyWithImpl<$Res> implements $DebitModelCopyWith<$Res> {
     Object? notes = freezed,
   }) {
     return _then(_self.copyWith(
+      transactionId: null == transactionId
+          ? _self.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
+              as String,
       category: null == category
           ? _self.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -340,7 +372,8 @@ class _$DebitModelCopyWithImpl<$Res> implements $DebitModelCopyWith<$Res> {
 @JsonSerializable()
 class _DebitModel implements DebitModel {
   const _DebitModel(
-      {required this.category,
+      {@JsonKey(name: '_id') required this.transactionId,
+      required this.category,
       required this.title,
       required this.costs,
       @DateTimeConverter() required this.date,
@@ -348,6 +381,9 @@ class _DebitModel implements DebitModel {
   factory _DebitModel.fromJson(Map<String, dynamic> json) =>
       _$DebitModelFromJson(json);
 
+  @override
+  @JsonKey(name: '_id')
+  final String transactionId;
   @override
   final String category;
   @override
@@ -380,6 +416,8 @@ class _DebitModel implements DebitModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _DebitModel &&
+            (identical(other.transactionId, transactionId) ||
+                other.transactionId == transactionId) &&
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.title, title) || other.title == title) &&
@@ -390,12 +428,12 @@ class _DebitModel implements DebitModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, category, title, costs, date, notes);
+  int get hashCode => Object.hash(
+      runtimeType, transactionId, category, title, costs, date, notes);
 
   @override
   String toString() {
-    return 'DebitModel(category: $category, title: $title, costs: $costs, date: $date, notes: $notes)';
+    return 'DebitModel(transactionId: $transactionId, category: $category, title: $title, costs: $costs, date: $date, notes: $notes)';
   }
 }
 
@@ -408,7 +446,8 @@ abstract mixin class _$DebitModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String category,
+      {@JsonKey(name: '_id') String transactionId,
+      String category,
       String title,
       double costs,
       @DateTimeConverter() DateTime date,
@@ -427,6 +466,7 @@ class __$DebitModelCopyWithImpl<$Res> implements _$DebitModelCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
+    Object? transactionId = null,
     Object? category = null,
     Object? title = null,
     Object? costs = null,
@@ -434,6 +474,10 @@ class __$DebitModelCopyWithImpl<$Res> implements _$DebitModelCopyWith<$Res> {
     Object? notes = freezed,
   }) {
     return _then(_DebitModel(
+      transactionId: null == transactionId
+          ? _self.transactionId
+          : transactionId // ignore: cast_nullable_to_non_nullable
+              as String,
       category: null == category
           ? _self.category
           : category // ignore: cast_nullable_to_non_nullable

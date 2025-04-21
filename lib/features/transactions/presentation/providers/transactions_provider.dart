@@ -69,3 +69,25 @@ Future<List<ITransactionModel>> getAllTransactions(Ref ref) async {
 
   return allTransactions;
 }
+
+@riverpod
+Future<bool> updateDebit(Ref ref, DebitModel debit) async {
+  final AppUser user = ref.watch(appUserProvider).value!;
+  final ApiService apiService = ref.watch(apiServiceProvider);
+
+  final Response<JSON> response = await apiService.request<JSON>(
+    '/api/update-debit',
+    method: HttpMethod.post,
+    queryParams: <String, dynamic>{
+      'id': user.id,
+    },
+    data: <String, dynamic>{
+      'transactionId': debit.transactionId,
+      'title': debit.title,
+      'category': debit.category,
+      'notes': debit.notes,
+    },
+  );
+
+  return response.statusCode == 200;
+}
