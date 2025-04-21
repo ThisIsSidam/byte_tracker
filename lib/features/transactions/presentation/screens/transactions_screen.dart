@@ -12,7 +12,7 @@ class TransactionsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TabController tabController = useTabController(initialLength: 4);
+    final TabController tabController = useTabController(initialLength: 3);
     final ValueNotifier<String> searchQuery = useState('');
 
     List<ITransactionModel> filterTransactions(
@@ -32,17 +32,10 @@ class TransactionsScreen extends HookConsumerWidget {
     ) {
       final List<ITransactionModel> filtered = filterTransactions(list);
       if (category == 'All') return filtered;
-      if (category == 'Misc') {
-        return filtered
-            .where(
-              (ITransactionModel t) =>
-                  !<String>['Food', 'Transport', 'Income'].contains(t.category),
-            )
-            .toList();
+      if (category == 'Credit') {
+        return filtered.whereType<CreditModel>().toList();
       }
-      return filtered
-          .where((ITransactionModel t) => t.category == category)
-          .toList();
+      return filtered.whereType<DebitModel>().toList();
     }
 
     return Scaffold(
@@ -69,9 +62,8 @@ class TransactionsScreen extends HookConsumerWidget {
           indicatorColor: Theme.of(context).primaryColor,
           tabs: const <Widget>[
             Tab(text: 'All'),
-            Tab(text: 'Food'),
-            Tab(text: 'Transport'),
-            Tab(text: 'Misc'),
+            Tab(text: 'Credit'),
+            Tab(text: 'Debit'),
           ],
         ),
       ),
@@ -90,9 +82,8 @@ class TransactionsScreen extends HookConsumerWidget {
           controller: tabController,
           children: <Widget>[
             _buildTransactionList(getByCategory(transactions, 'All')),
-            _buildTransactionList(getByCategory(transactions, 'Food')),
-            _buildTransactionList(getByCategory(transactions, 'Transport')),
-            _buildTransactionList(getByCategory(transactions, 'Misc')),
+            _buildTransactionList(getByCategory(transactions, 'Credit')),
+            _buildTransactionList(getByCategory(transactions, 'Debit')),
           ],
         ),
       ),
@@ -100,6 +91,9 @@ class TransactionsScreen extends HookConsumerWidget {
   }
 
   Widget _buildTransactionList(List<ITransactionModel> transactions) {
+    if (transactions.isEmpty) {
+      return _buildEmptyTransactions();
+    }
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: transactions.length,
@@ -109,6 +103,39 @@ class TransactionsScreen extends HookConsumerWidget {
           child: TransactionCard(transaction: transactions[index]),
         );
       },
+    );
+  }
+
+  Widget _buildEmptyTransactions() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.account_balance_wallet_outlined,
+              size: 64,
+              color: Colors.grey[400],
+            ),
+            Text(
+              'No transactions found',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[600],
+              ),
+            ),
+            Text(
+              'Start adding transactions to track your finances',
+              style: TextStyle(
+                color: Colors.grey[500],
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
