@@ -15,18 +15,20 @@ Future<bool> addGoal(Ref ref, GoalModel newGoal) async {
   final AppUser user = ref.watch(appUserProvider).value!;
   final ApiService apiService = ref.watch(apiServiceProvider);
 
+  final Map<String, dynamic> data = <String, dynamic>{
+    'isShortTerm': newGoal.isShortTermed,
+    'priority': newGoal.priority,
+    'title': newGoal.title,
+    'amount': newGoal.amount,
+    'remainderAt': newGoal.remaindAt.millisecondsSinceEpoch,
+  };
+
   final Response<JSON> response = await apiService.request<JSON>(
     '/api/goals',
-    method: HttpMethod.get,
+    method: HttpMethod.post,
+    data: data,
     queryParams: <String, dynamic>{
       'id': user.id,
-    },
-    data: <String, Object>{
-      'isShortTerm': newGoal.isShortTerm,
-      'priority': newGoal.priority,
-      'title': newGoal.title,
-      'amount': newGoal.amount,
-      'remainderAt': newGoal.remainderAt.millisecondsSinceEpoch,
     },
   );
 

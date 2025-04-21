@@ -6,7 +6,7 @@ part of 'goal_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addGoalHash() => r'52afc3c0bada75af2794d89a951b9b75cbfb4dde';
+String _$addGoalHash() => r'69b24592ff07ae64e53d3ff6eba6cdb823f3fdf1';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../../core/providers/app_user_provider.dart';
 import '../../../../shared/widgets/future_response_dialog.dart';
 import '../../data/model/goal_model.dart';
 import '../providers/goal_providers.dart';
@@ -196,7 +197,7 @@ class GoalForm extends HookConsumerWidget {
           onPressed: form.valid
               ? () async {
                   final GoalModel newGoal = GoalModel(
-                    isShortTerm:
+                    isShortTermed:
                         form.control('isShortTerm').value as bool? ?? false,
                     priority: form.control('priority').value as int? ?? 1,
                     title: form.control('title').value as String? ?? '',
@@ -205,7 +206,7 @@ class GoalForm extends HookConsumerWidget {
                     ),
                     currentlySaved: 0,
                     createdAt: DateTime.now(),
-                    remainderAt: form.control('deadline').value as DateTime? ??
+                    remaindAt: form.control('deadline').value as DateTime? ??
                         DateTime.now(),
                   );
 
@@ -219,6 +220,7 @@ class GoalForm extends HookConsumerWidget {
                   );
                   if (!context.mounted) return;
                   if (updateResult != null && updateResult) {
+                    ref.invalidate(appUserProvider);
                     Navigator.of(context).pop();
                   }
                 }

@@ -7,22 +7,24 @@ part of 'goal_model.dart';
 // **************************************************************************
 
 _GoalModel _$GoalModelFromJson(Map<String, dynamic> json) => _GoalModel(
-      isShortTerm: json['isShortTerm'] as bool,
+      isShortTermed: json['isShortTermed'] as bool,
       priority: (json['priority'] as num).toInt(),
       title: json['title'] as String,
       amount: (json['amount'] as num).toDouble(),
       currentlySaved: (json['currentlySaved'] as num).toDouble(),
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      remainderAt: DateTime.parse(json['remainderAt'] as String),
+      createdAt: const DateTimeConverter()
+          .fromJson((json['createdAt'] as num).toInt()),
+      remaindAt: const DateTimeConverter()
+          .fromJson((json['remaindAt'] as num).toInt()),
     );
 
 Map<String, dynamic> _$GoalModelToJson(_GoalModel instance) =>
     <String, dynamic>{
-      'isShortTerm': instance.isShortTerm,
+      'isShortTermed': instance.isShortTermed,
       'priority': instance.priority,
       'title': instance.title,
       'amount': instance.amount,
       'currentlySaved': instance.currentlySaved,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'remainderAt': instance.remainderAt.toIso8601String(),
+      'createdAt': const DateTimeConverter().toJson(instance.createdAt),
+      'remaindAt': const DateTimeConverter().toJson(instance.remaindAt),
     };

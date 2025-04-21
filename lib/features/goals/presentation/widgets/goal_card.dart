@@ -20,9 +20,12 @@ class GoalCard extends StatelessWidget {
       shape: isCompleted
           ? RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
-              side: BorderSide(color: Colors.green.shade200),
+              side: BorderSide(color: Colors.green.shade400),
             )
-          : null,
+          : RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(color: Colors.grey.shade400),
+            ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -68,7 +71,7 @@ class GoalCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  goal.remainderAt.friendly,
+                  goal.remaindAt.friendly,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey.shade600,
@@ -91,28 +94,17 @@ class GoalCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  '₹${goal.amount.toCurrency()} saved',
+                  '₹${goal.currentlySaved.toCurrency()} saved',
                   style: const TextStyle(fontSize: 14),
                 ),
                 Text(
-                  '₹${goal.amount} goal',
+                  '₹${goal.amount.toCurrency()} goal',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                onPressed: () {},
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                ),
-                child: Text(isCompleted ? 'Withdraw Funds' : 'Add Money'),
-              ),
             ),
           ],
         ),

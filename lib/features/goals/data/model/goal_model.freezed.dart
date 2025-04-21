@@ -15,13 +15,15 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$GoalModel {
-  bool get isShortTerm;
+  bool get isShortTermed;
   int get priority;
   String get title;
   double get amount;
   double get currentlySaved;
+  @DateTimeConverter()
   DateTime get createdAt;
-  DateTime get remainderAt;
+  @DateTimeConverter()
+  DateTime get remaindAt;
 
   /// Create a copy of GoalModel
   /// with the given fields replaced by the non-null parameter values.
@@ -38,8 +40,8 @@ mixin _$GoalModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is GoalModel &&
-            (identical(other.isShortTerm, isShortTerm) ||
-                other.isShortTerm == isShortTerm) &&
+            (identical(other.isShortTermed, isShortTermed) ||
+                other.isShortTermed == isShortTermed) &&
             (identical(other.priority, priority) ||
                 other.priority == priority) &&
             (identical(other.title, title) || other.title == title) &&
@@ -48,18 +50,18 @@ mixin _$GoalModel {
                 other.currentlySaved == currentlySaved) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
-            (identical(other.remainderAt, remainderAt) ||
-                other.remainderAt == remainderAt));
+            (identical(other.remaindAt, remaindAt) ||
+                other.remaindAt == remaindAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, isShortTerm, priority, title,
-      amount, currentlySaved, createdAt, remainderAt);
+  int get hashCode => Object.hash(runtimeType, isShortTermed, priority, title,
+      amount, currentlySaved, createdAt, remaindAt);
 
   @override
   String toString() {
-    return 'GoalModel(isShortTerm: $isShortTerm, priority: $priority, title: $title, amount: $amount, currentlySaved: $currentlySaved, createdAt: $createdAt, remainderAt: $remainderAt)';
+    return 'GoalModel(isShortTermed: $isShortTermed, priority: $priority, title: $title, amount: $amount, currentlySaved: $currentlySaved, createdAt: $createdAt, remaindAt: $remaindAt)';
   }
 }
 
@@ -69,13 +71,13 @@ abstract mixin class $GoalModelCopyWith<$Res> {
       _$GoalModelCopyWithImpl;
   @useResult
   $Res call(
-      {bool isShortTerm,
+      {bool isShortTermed,
       int priority,
       String title,
       double amount,
       double currentlySaved,
-      DateTime createdAt,
-      DateTime remainderAt});
+      @DateTimeConverter() DateTime createdAt,
+      @DateTimeConverter() DateTime remaindAt});
 }
 
 /// @nodoc
@@ -90,18 +92,18 @@ class _$GoalModelCopyWithImpl<$Res> implements $GoalModelCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isShortTerm = null,
+    Object? isShortTermed = null,
     Object? priority = null,
     Object? title = null,
     Object? amount = null,
     Object? currentlySaved = null,
     Object? createdAt = null,
-    Object? remainderAt = null,
+    Object? remaindAt = null,
   }) {
     return _then(_self.copyWith(
-      isShortTerm: null == isShortTerm
-          ? _self.isShortTerm
-          : isShortTerm // ignore: cast_nullable_to_non_nullable
+      isShortTermed: null == isShortTermed
+          ? _self.isShortTermed
+          : isShortTermed // ignore: cast_nullable_to_non_nullable
               as bool,
       priority: null == priority
           ? _self.priority
@@ -123,9 +125,9 @@ class _$GoalModelCopyWithImpl<$Res> implements $GoalModelCopyWith<$Res> {
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      remainderAt: null == remainderAt
-          ? _self.remainderAt
-          : remainderAt // ignore: cast_nullable_to_non_nullable
+      remaindAt: null == remaindAt
+          ? _self.remaindAt
+          : remaindAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
   }
@@ -135,18 +137,18 @@ class _$GoalModelCopyWithImpl<$Res> implements $GoalModelCopyWith<$Res> {
 @JsonSerializable()
 class _GoalModel implements GoalModel {
   const _GoalModel(
-      {required this.isShortTerm,
+      {required this.isShortTermed,
       required this.priority,
       required this.title,
       required this.amount,
       required this.currentlySaved,
-      required this.createdAt,
-      required this.remainderAt});
+      @DateTimeConverter() required this.createdAt,
+      @DateTimeConverter() required this.remaindAt});
   factory _GoalModel.fromJson(Map<String, dynamic> json) =>
       _$GoalModelFromJson(json);
 
   @override
-  final bool isShortTerm;
+  final bool isShortTermed;
   @override
   final int priority;
   @override
@@ -156,9 +158,11 @@ class _GoalModel implements GoalModel {
   @override
   final double currentlySaved;
   @override
+  @DateTimeConverter()
   final DateTime createdAt;
   @override
-  final DateTime remainderAt;
+  @DateTimeConverter()
+  final DateTime remaindAt;
 
   /// Create a copy of GoalModel
   /// with the given fields replaced by the non-null parameter values.
@@ -180,8 +184,8 @@ class _GoalModel implements GoalModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _GoalModel &&
-            (identical(other.isShortTerm, isShortTerm) ||
-                other.isShortTerm == isShortTerm) &&
+            (identical(other.isShortTermed, isShortTermed) ||
+                other.isShortTermed == isShortTermed) &&
             (identical(other.priority, priority) ||
                 other.priority == priority) &&
             (identical(other.title, title) || other.title == title) &&
@@ -190,18 +194,18 @@ class _GoalModel implements GoalModel {
                 other.currentlySaved == currentlySaved) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
-            (identical(other.remainderAt, remainderAt) ||
-                other.remainderAt == remainderAt));
+            (identical(other.remaindAt, remaindAt) ||
+                other.remaindAt == remaindAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, isShortTerm, priority, title,
-      amount, currentlySaved, createdAt, remainderAt);
+  int get hashCode => Object.hash(runtimeType, isShortTermed, priority, title,
+      amount, currentlySaved, createdAt, remaindAt);
 
   @override
   String toString() {
-    return 'GoalModel(isShortTerm: $isShortTerm, priority: $priority, title: $title, amount: $amount, currentlySaved: $currentlySaved, createdAt: $createdAt, remainderAt: $remainderAt)';
+    return 'GoalModel(isShortTermed: $isShortTermed, priority: $priority, title: $title, amount: $amount, currentlySaved: $currentlySaved, createdAt: $createdAt, remaindAt: $remaindAt)';
   }
 }
 
@@ -214,13 +218,13 @@ abstract mixin class _$GoalModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isShortTerm,
+      {bool isShortTermed,
       int priority,
       String title,
       double amount,
       double currentlySaved,
-      DateTime createdAt,
-      DateTime remainderAt});
+      @DateTimeConverter() DateTime createdAt,
+      @DateTimeConverter() DateTime remaindAt});
 }
 
 /// @nodoc
@@ -235,18 +239,18 @@ class __$GoalModelCopyWithImpl<$Res> implements _$GoalModelCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? isShortTerm = null,
+    Object? isShortTermed = null,
     Object? priority = null,
     Object? title = null,
     Object? amount = null,
     Object? currentlySaved = null,
     Object? createdAt = null,
-    Object? remainderAt = null,
+    Object? remaindAt = null,
   }) {
     return _then(_GoalModel(
-      isShortTerm: null == isShortTerm
-          ? _self.isShortTerm
-          : isShortTerm // ignore: cast_nullable_to_non_nullable
+      isShortTermed: null == isShortTermed
+          ? _self.isShortTermed
+          : isShortTermed // ignore: cast_nullable_to_non_nullable
               as bool,
       priority: null == priority
           ? _self.priority
@@ -268,9 +272,9 @@ class __$GoalModelCopyWithImpl<$Res> implements _$GoalModelCopyWith<$Res> {
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      remainderAt: null == remainderAt
-          ? _self.remainderAt
-          : remainderAt // ignore: cast_nullable_to_non_nullable
+      remaindAt: null == remaindAt
+          ? _self.remaindAt
+          : remaindAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
   }

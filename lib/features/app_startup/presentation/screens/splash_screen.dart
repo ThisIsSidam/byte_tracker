@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,19 +19,22 @@ class SplashScreen extends ConsumerWidget {
         value: ref.watch(appStartupProvider),
         skipLoadingOnRefresh: false,
         orElse: _buildLoader,
-        error: (Object error, _) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(error.toString()),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => ref.invalidate(appStartupProvider),
-                child: const Text('Retry'),
-              ),
-            ],
-          ),
-        ),
+        error: (Object error, StackTrace? stk) {
+          log(error.toString(), stackTrace: stk);
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(error.toString()),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => ref.invalidate(appStartupProvider),
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
