@@ -1,3 +1,6 @@
 [submodule "bytetracker_"]
 	path = bytetracker_
 	url = https://github.com/RitochitGhosh/bytetracker_
+[submodule "bytetracker_bank"]
+	path = bytetracker_bank
+	url = https://github.com/RitochitGhosh/bytetracker_bank
