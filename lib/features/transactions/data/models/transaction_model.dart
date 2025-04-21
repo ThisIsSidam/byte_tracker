@@ -48,3 +48,14 @@ abstract class DebitModel with _$DebitModel implements ITransactionModel {
   factory DebitModel.fromJson(Map<String, dynamic> json) =>
       _$DebitModelFromJson(json);
 }
+
+@freezed
+abstract class CategoryModel with _$CategoryModel {
+  const factory CategoryModel({
+    required String name,
+    required bool isArchived,
+  }) = _CategoryModel;
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) =>
+      _$CategoryModelFromJson(json);
+}

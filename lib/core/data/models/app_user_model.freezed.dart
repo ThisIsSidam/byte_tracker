@@ -32,6 +32,7 @@ mixin _$AppUser {
   DateTime get createdAt;
   DateTime get updatedAt;
   List<GoalModel> get goals;
+  List<CategoryModel> get categories;
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
@@ -68,7 +69,9 @@ mixin _$AppUser {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            const DeepCollectionEquality().equals(other.goals, goals));
+            const DeepCollectionEquality().equals(other.goals, goals) &&
+            const DeepCollectionEquality()
+                .equals(other.categories, categories));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -86,11 +89,12 @@ mixin _$AppUser {
       lastBankSync,
       createdAt,
       updatedAt,
-      const DeepCollectionEquality().hash(goals));
+      const DeepCollectionEquality().hash(goals),
+      const DeepCollectionEquality().hash(categories));
 
   @override
   String toString() {
-    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt, goals: $goals)';
+    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt, goals: $goals, categories: $categories)';
   }
 }
 
@@ -111,7 +115,8 @@ abstract mixin class $AppUserCopyWith<$Res> {
       @JsonKey(name: 'lastBankSync') int lastBankSync,
       DateTime createdAt,
       DateTime updatedAt,
-      List<GoalModel> goals});
+      List<GoalModel> goals,
+      List<CategoryModel> categories});
 }
 
 /// @nodoc
@@ -138,6 +143,7 @@ class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? goals = null,
+    Object? categories = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -188,6 +194,10 @@ class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
           ? _self.goals
           : goals // ignore: cast_nullable_to_non_nullable
               as List<GoalModel>,
+      categories: null == categories
+          ? _self.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryModel>,
     ));
   }
 }
@@ -207,8 +217,10 @@ class _AppUser implements AppUser {
       @JsonKey(name: 'lastBankSync') required this.lastBankSync,
       required this.createdAt,
       required this.updatedAt,
-      final List<GoalModel> goals = const <GoalModel>[]})
-      : _goals = goals;
+      final List<GoalModel> goals = const <GoalModel>[],
+      final List<CategoryModel> categories = const <CategoryModel>[]})
+      : _goals = goals,
+        _categories = categories;
   factory _AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
 
@@ -246,6 +258,15 @@ class _AppUser implements AppUser {
     if (_goals is EqualUnmodifiableListView) return _goals;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_goals);
+  }
+
+  final List<CategoryModel> _categories;
+  @override
+  @JsonKey()
+  List<CategoryModel> get categories {
+    if (_categories is EqualUnmodifiableListView) return _categories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_categories);
   }
 
   /// Create a copy of AppUser
@@ -288,7 +309,9 @@ class _AppUser implements AppUser {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            const DeepCollectionEquality().equals(other._goals, _goals));
+            const DeepCollectionEquality().equals(other._goals, _goals) &&
+            const DeepCollectionEquality()
+                .equals(other._categories, _categories));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -306,11 +329,12 @@ class _AppUser implements AppUser {
       lastBankSync,
       createdAt,
       updatedAt,
-      const DeepCollectionEquality().hash(_goals));
+      const DeepCollectionEquality().hash(_goals),
+      const DeepCollectionEquality().hash(_categories));
 
   @override
   String toString() {
-    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt, goals: $goals)';
+    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, aadharId: $aadharId, email: $email, grossAmount: $grossAmount, alertOnRemaigning: $alertOnRemaigning, limitForDay: $limitForDay, lastBankSync: $lastBankSync, createdAt: $createdAt, updatedAt: $updatedAt, goals: $goals, categories: $categories)';
   }
 }
 
@@ -332,7 +356,8 @@ abstract mixin class _$AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       @JsonKey(name: 'lastBankSync') int lastBankSync,
       DateTime createdAt,
       DateTime updatedAt,
-      List<GoalModel> goals});
+      List<GoalModel> goals,
+      List<CategoryModel> categories});
 }
 
 /// @nodoc
@@ -359,6 +384,7 @@ class __$AppUserCopyWithImpl<$Res> implements _$AppUserCopyWith<$Res> {
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? goals = null,
+    Object? categories = null,
   }) {
     return _then(_AppUser(
       id: null == id
@@ -409,6 +435,10 @@ class __$AppUserCopyWithImpl<$Res> implements _$AppUserCopyWith<$Res> {
           ? _self._goals
           : goals // ignore: cast_nullable_to_non_nullable
               as List<GoalModel>,
+      categories: null == categories
+          ? _self._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryModel>,
     ));
   }
 }

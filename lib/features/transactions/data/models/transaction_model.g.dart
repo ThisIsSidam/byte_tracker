@@ -39,3 +39,15 @@ Map<String, dynamic> _$DebitModelToJson(_DebitModel instance) =>
       'date': const DateTimeConverter().toJson(instance.date),
       'notes': instance.notes,
     };
+
+_CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) =>
+    _CategoryModel(
+      name: json['name'] as String,
+      isArchived: json['isArchived'] as bool,
+    );
+
+Map<String, dynamic> _$CategoryModelToJson(_CategoryModel instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'isArchived': instance.isArchived,
+    };

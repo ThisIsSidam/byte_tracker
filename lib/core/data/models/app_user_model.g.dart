@@ -22,6 +22,10 @@ _AppUser _$AppUserFromJson(Map<String, dynamic> json) => _AppUser(
               ?.map((e) => GoalModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <GoalModel>[],
+      categories: (json['categories'] as List<dynamic>?)
+              ?.map((e) => CategoryModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <CategoryModel>[],
     );
 
 Map<String, dynamic> _$AppUserToJson(_AppUser instance) => <String, dynamic>{
@@ -37,4 +41,5 @@ Map<String, dynamic> _$AppUserToJson(_AppUser instance) => <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
       'goals': instance.goals,
+      'categories': instance.categories,
     };

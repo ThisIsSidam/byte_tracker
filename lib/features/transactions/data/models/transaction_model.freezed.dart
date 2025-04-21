@@ -458,4 +458,165 @@ class __$DebitModelCopyWithImpl<$Res> implements _$DebitModelCopyWith<$Res> {
   }
 }
 
+/// @nodoc
+mixin _$CategoryModel {
+  String get name;
+  bool get isArchived;
+
+  /// Create a copy of CategoryModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CategoryModelCopyWith<CategoryModel> get copyWith =>
+      _$CategoryModelCopyWithImpl<CategoryModel>(
+          this as CategoryModel, _$identity);
+
+  /// Serializes this CategoryModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CategoryModel &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.isArchived, isArchived) ||
+                other.isArchived == isArchived));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, isArchived);
+
+  @override
+  String toString() {
+    return 'CategoryModel(name: $name, isArchived: $isArchived)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $CategoryModelCopyWith<$Res> {
+  factory $CategoryModelCopyWith(
+          CategoryModel value, $Res Function(CategoryModel) _then) =
+      _$CategoryModelCopyWithImpl;
+  @useResult
+  $Res call({String name, bool isArchived});
+}
+
+/// @nodoc
+class _$CategoryModelCopyWithImpl<$Res>
+    implements $CategoryModelCopyWith<$Res> {
+  _$CategoryModelCopyWithImpl(this._self, this._then);
+
+  final CategoryModel _self;
+  final $Res Function(CategoryModel) _then;
+
+  /// Create a copy of CategoryModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? isArchived = null,
+  }) {
+    return _then(_self.copyWith(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      isArchived: null == isArchived
+          ? _self.isArchived
+          : isArchived // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _CategoryModel implements CategoryModel {
+  const _CategoryModel({required this.name, required this.isArchived});
+  factory _CategoryModel.fromJson(Map<String, dynamic> json) =>
+      _$CategoryModelFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final bool isArchived;
+
+  /// Create a copy of CategoryModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CategoryModelCopyWith<_CategoryModel> get copyWith =>
+      __$CategoryModelCopyWithImpl<_CategoryModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CategoryModelToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _CategoryModel &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.isArchived, isArchived) ||
+                other.isArchived == isArchived));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, isArchived);
+
+  @override
+  String toString() {
+    return 'CategoryModel(name: $name, isArchived: $isArchived)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$CategoryModelCopyWith<$Res>
+    implements $CategoryModelCopyWith<$Res> {
+  factory _$CategoryModelCopyWith(
+          _CategoryModel value, $Res Function(_CategoryModel) _then) =
+      __$CategoryModelCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String name, bool isArchived});
+}
+
+/// @nodoc
+class __$CategoryModelCopyWithImpl<$Res>
+    implements _$CategoryModelCopyWith<$Res> {
+  __$CategoryModelCopyWithImpl(this._self, this._then);
+
+  final _CategoryModel _self;
+  final $Res Function(_CategoryModel) _then;
+
+  /// Create a copy of CategoryModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? isArchived = null,
+  }) {
+    return _then(_CategoryModel(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      isArchived: null == isArchived
+          ? _self.isArchived
+          : isArchived // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
 // dart format on
